@@ -31,5 +31,5 @@ before_script:
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
-  - qmake
+  - cmake .
   - make -j8
