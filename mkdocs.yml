@@ -22,8 +22,6 @@ extra_css:
     - css/extra.css
 
 markdown_extensions:
-    - pymdownx.emoji:
-        emoji_generator: !!python/name:pymdownx.emoji.to_png
     - toc:
         title: "Table of Contents"
         permalink: "#"
