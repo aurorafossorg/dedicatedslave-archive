@@ -1,0 +1,34 @@
+site_name: DedicatedSlave
+site_url: https://enthdev.github.io/dedicatedslave/
+site_description: A cross platform desktop app tool to manage steam dedicated game servers with SteamCMD.
+site_author: Enthusiastic Development
+
+repo_url: https://github.com/EnthDev/dedicatedslave/
+edit_uri: ""
+
+pages:
+- Home: index.md
+- User Guide:
+    - Getting Started: user-guide/gettingstarted.md
+    - Configuration: user-guide/configuration.md
+- Developer Guide:
+    - Development: developer-guide/development.md
+- About:
+    - Release Notes: about/release-notes.md
+    - License: about/license.md
+    - Support: about/support.md
+
+extra_css:
+    - css/extra.css
+
+markdown_extensions:
+    - pymdownx.emoji:
+        emoji_generator: !!python/name:pymdownx.emoji.to_png
+    - toc:
+        title: "Table of Contents"
+        permalink: "#"
+        separator: "-"
+    - admonition:
+
+copyright: Made with love by <a href="https://github.com/EnthDev">EnthDev</a>
+google_analytics: ['UA-93782605-1', 'enthdev.github.io/dedicatedslave']

@@ -1,0 +1,35 @@
+language: cpp
+
+addons:
+  apt:
+    sources:
+    - ubuntu-sdk-team
+    packages:
+    - qtbase5-dev
+    - qt5-default
+    - qt5-qmake
+    - qttools5-dev-tools
+    - qtbase5-dev-tools
+
+matrix:
+  allow_failures:
+    - os: osx
+
+  include:
+    - os: linux
+      compiler: clang
+      sudo: required
+    - os: linux
+      compiler: gcc
+      sudo: required
+    - os: osx
+      compiler: gcc
+    - os: osx
+      compiler: clang
+
+before_script:
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
+
+script:
+  - qmake
+  - make -j8
