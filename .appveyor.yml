@@ -16,7 +16,7 @@ install:
   - pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config mingw-w64-x86_64-gtk3 mingw-w64-x86_64-portaudio mingw-w64-x86_64-libsndfile  mingw-w64-x86_64-freeimage mingw-w64-x86_64-glew mingw-w64-x86_64-glfw --noconfirm
 
 before_build:
-  - cmake -DCMAKE_C_COMPILER="gcc.exe" -DCMAKE_CXX_COMPILER="g++.exe" -G"Unix Makefiles" .
+  - cmake -DCMAKE_C_COMPILER="gcc.exe" -DCMAKE_CXX_COMPILER="gcc.exe" -G"Unix Makefiles" .
 
 build_script:
   - make
