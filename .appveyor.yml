@@ -11,11 +11,7 @@ clone_folder: C:\DedicatedSlave-build\
 
 install:
   - md C:\DedicatedSlave-build\bin
-  - curl https://raw.githubusercontent.com/esrlabs/git-repo/stable/repo > C:\DedicatedSlave-build\bin\repo
-  - curl https://raw.githubusercontent.com/esrlabs/git-repo/stable/repo.cmd > C:\DedicatedSlave-build\bin\repo.cmd
   - set PATH=%PATH%;C:\DedicatedSlave-build\bin
-  - repo init -u https://github.com/EnthDev/dedicatedslave.git
-  - repo sync
   - set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
   - pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config mingw-w64-x86_64-gtk3 mingw-w64-x86_64-portaudio mingw-w64-x86_64-libsndfile  mingw-w64-x86_64-freeimage mingw-w64-x86_64-glew mingw-w64-x86_64-glfw --noconfirm
 
