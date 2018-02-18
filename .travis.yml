@@ -10,6 +10,8 @@ addons:
     - qt5-qmake
     - qttools5-dev-tools
     - qtbase5-dev-tools
+    - qtdeclarative5-dev
+    - libsqlite3-dev
 
 matrix:
   allow_failures:
