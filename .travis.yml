@@ -1,17 +1,5 @@
 language: cpp
 
-addons:
-  apt:
-    sources:
-    - ubuntu-sdk-team
-    packages:
-    - qtbase5-dev
-    - qt5-default
-    - qt5-qmake
-    - qtcore5-dev
-    - qttools5-dev-tools
-    - qtbase5-dev-tools
-
 matrix:
   allow_failures:
     - os: osx
@@ -34,9 +22,16 @@ matrix:
         apt:
           sources:
           - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
           packages:
           - gcc-4.9
           - g++-4.9
+          - qtbase5-dev
+          - qt5-default
+          - qt5-qmake
+          - qtcore5-dev
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
 
     - os: linux
       env: QT_BASE=55 COMPILER=g++-4.9 CMAKE_BUILD_TYPE=Release
@@ -45,9 +40,16 @@ matrix:
         apt:
           sources:
           - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
           packages:
           - gcc-4.9
           - g++-4.9
+          - qtbase5-dev
+          - qt5-default
+          - qt5-qmake
+          - qtcore5-dev
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
 
     - os: linux
       env: QT_BASE=55 COMPILER=g++-7 CMAKE_BUILD_TYPE=Release
@@ -56,16 +58,20 @@ matrix:
         apt:
           sources:
           - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
           packages:
           - gcc-7
           - g++-7
+          - qtbase5-dev
+          - qt5-default
+          - qt5-qmake
+          - qtcore5-dev
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
 
 before_script:
-  - cmake --version
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ..
+  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} .
   - make -j8
