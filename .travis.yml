@@ -70,6 +70,7 @@ matrix:
 
 before_script:
   - cmake --version
+  - apt-file search Qt5CoreConfig.cmake
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
