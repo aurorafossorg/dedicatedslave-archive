@@ -11,14 +11,7 @@ addons:
     - qtcore5-dev
     - qttools5-dev-tools
     - qtbase5-dev-tools
-    - libqt5svg5-dev
-    - qttools5-dev
-    - qtscript5-dev
-    - qtdeclarative5-folderlistmodel-plugin
-    - qtdeclarative5-controls-plugin
-    - qtbase5-dev-tools
-    - qtchooser
-    - qtdeclarative5-dev
+    - apt-file
 
 matrix:
   allow_failures:
