@@ -11,6 +11,7 @@ addons:
     - qtcore5-dev
     - qttools5-dev-tools
     - qtbase5-dev-tools
+    - apt-file
 
 matrix:
   allow_failures:
@@ -62,11 +63,10 @@ matrix:
 
 before_script:
   - cmake --version
-  - apt-get install apt-file
-  - apt-file search Qt5CoreConfig.cmake
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
+  - apt-file search Qt5CoreConfig.cmake
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ..
