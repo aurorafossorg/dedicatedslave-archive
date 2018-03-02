@@ -16,12 +16,11 @@ public:
     ~DedicatedSlaveData();
     void SaveXMLFile();
     void restoreInstReadXMLFile();
-    enum InstancesTypes {
+    enum class InstancesTypes {
         CSGO = 0x00,
         RUST = 0x01,
         NO
     };
-    Q_ENUM (InstancesTypes);
     InstancesTypes getInstanceType(QString type);
     void insertInst(QString instanceName, QString game);
     void removeInst(QString instanceName);
