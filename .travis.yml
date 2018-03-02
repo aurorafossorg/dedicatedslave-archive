@@ -67,5 +67,5 @@ before_script:
 script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_PREFIX_PATH=/usr/local ..
+  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ..
   - make -j8
