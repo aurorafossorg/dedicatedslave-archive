@@ -16,41 +16,7 @@ matrix:
   #     compiler: clang
   include:
     - os: linux
-      env: QT_BASE=55 COMPILER=g++-4.9 CMAKE_BUILD_TYPE=Debug
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          - ubuntu-sdk-team
-          packages:
-          - gcc-4.9
-          - g++-4.9
-          - qtbase5-dev
-          - qt5-default
-          - qt5-qmake
-          - qttools5-dev-tools
-          - qtbase5-dev-tools
-
-    - os: linux
-      env: QT_BASE=55 COMPILER=g++-4.9 CMAKE_BUILD_TYPE=Release
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-          - ubuntu-toolchain-r-test
-          - ubuntu-sdk-team
-          packages:
-          - gcc-4.9
-          - g++-4.9
-          - qtbase5-dev
-          - qt5-default
-          - qt5-qmake
-          - qttools5-dev-tools
-          - qtbase5-dev-tools
-
-    - os: linux
-      env: QT_BASE=55 COMPILER=g++-7 CMAKE_BUILD_TYPE=Release
+      env: CI_COMPILER=g++-7 CI_BUILD_TYPE=Debug
       compiler: gcc
       addons:
         apt:
@@ -59,7 +25,22 @@ matrix:
           - ubuntu-sdk-team
           packages:
           - gcc-7
-          - g++-7
+          - qtbase5-dev
+          - qt5-default
+          - qt5-qmake
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
+
+    - os: linux
+      env: CI_COMPILER=g++-7 CI_BUILD_TYPE=Release
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
+          packages:
+          - gcc-7
           - qtbase5-dev
           - qt5-default
           - qt5-qmake
@@ -70,5 +51,5 @@ before_script:
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
-  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} .
+  - cmake -DCMAKE_BUILD_TYPE=${CI_BUILD_TYPE} -DCMAKE_CXX_COMPILER=${CI_COMPILER} .
   - make -j8
