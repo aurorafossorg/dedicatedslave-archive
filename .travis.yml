@@ -16,7 +16,7 @@ matrix:
   #     compiler: clang
   include:
     - os: linux
-      env: CI_CC_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Debug
+      env: CI_C_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Debug
       compiler: gcc
       addons:
         apt:
@@ -33,7 +33,7 @@ matrix:
           - qtbase5-dev-tools
 
     - os: linux
-      env: CI_CC_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Release
+      env: CI_C_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Release
       compiler: gcc
       addons:
         apt:
@@ -53,5 +53,5 @@ before_script:
   - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
 
 script:
-  - cmake -DCMAKE_BUILD_TYPE=${CI_BUILD_TYPE} -DCMAKE_CC_COMPILER=${CI_CC_COMPILER} -DCMAKE_CXX_COMPILER=${CI_CXX_COMPILER} .
+  - cmake -DCMAKE_BUILD_TYPE=${CI_BUILD_TYPE} -DCMAKE_C_COMPILER=${CI_C_COMPILER} -DCMAKE_CXX_COMPILER=${CI_CXX_COMPILER} .
   - make -j8
