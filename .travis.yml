@@ -29,7 +29,6 @@ matrix:
           - qtbase5-dev
           - qt5-default
           - qt5-qmake
-          - qtcore5-dev
           - qttools5-dev-tools
           - qtbase5-dev-tools
 
@@ -47,7 +46,6 @@ matrix:
           - qtbase5-dev
           - qt5-default
           - qt5-qmake
-          - qtcore5-dev
           - qttools5-dev-tools
           - qtbase5-dev-tools
 
@@ -65,7 +63,6 @@ matrix:
           - qtbase5-dev
           - qt5-default
           - qt5-qmake
-          - qtcore5-dev
           - qttools5-dev-tools
           - qtbase5-dev-tools
 
