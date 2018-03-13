@@ -51,11 +51,12 @@ arch:
     - lcov
     - python
     - python-pip
+    - qt5-tools
 
   script:
-    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; else yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
-    - repo sync
-    - sudo repo forall -c repo start $TRAVIS_BRANCH .
+#    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; else yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
+#    - repo sync
+#    - sudo repo forall -c repo start $TRAVIS_BRANCH .
     - if [[ "$TRAVIS_BRANCH" != "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; else cmake -DCMAKE_BUILD_TYPE=Release -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; fi
     - make
     - sudo make install
