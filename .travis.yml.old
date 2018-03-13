@@ -1,0 +1,57 @@
+language: cpp
+
+matrix:
+  allow_failures:
+    - os: osx
+  # include:
+  #   - os: linux
+  #     compiler: clang
+  #     sudo: required
+  #   - os: linux
+  #     compiler: gcc
+  #     sudo: required
+  #   - os: osx
+  #     compiler: gcc
+  #   - os: osx
+  #     compiler: clang
+  include:
+    - os: linux
+      env: CI_C_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Debug
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
+          packages:
+          - gcc-7
+          - g++-7
+          - qtbase5-dev 
+          - qt5-default
+          - qt5-qmake
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
+
+    - os: linux
+      env: CI_C_COMPILER=gcc-7 CI_CXX_COMPILER=g++-7 CI_BUILD_TYPE=Release
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          - ubuntu-sdk-team
+          packages:
+          - gcc-7
+          - g++-7
+          - qtbase5-dev
+          - qt5-default
+          - qt5-qmake
+          - qttools5-dev-tools
+          - qtbase5-dev-tools
+
+before_script:
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install qt5; brew link qt5 --force; fi
+
+script:
+  - cmake -DCMAKE_BUILD_TYPE=${CI_BUILD_TYPE} -DCMAKE_C_COMPILER=${CI_C_COMPILER} -DCMAKE_CXX_COMPILER=${CI_CXX_COMPILER} .
+  - make -j8

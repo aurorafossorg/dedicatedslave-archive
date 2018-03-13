@@ -13,6 +13,7 @@ pages:
     - Configuration: user-guide/configuration.md
 - Developer Guide:
     - Development: developer-guide/development.md
+    - Contributing: developer-guide/contributing.md
 - About:
     - Release Notes: about/release-notes.md
     - License: about/license.md

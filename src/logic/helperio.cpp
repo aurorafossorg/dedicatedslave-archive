@@ -15,13 +15,11 @@ namespace DedicatedSlave {
 			this, SLOT(downloadFinished(QNetworkReply*)));
 	}
 
-	HelperIO::~HelperIO()
-	{
+	HelperIO::~HelperIO(){
 		delete _pid;
 	}
 
-	bool HelperIO::fileExists(QString path)
-	{
+	bool HelperIO::fileExists(QString path){
 		QFileInfo check_file(path);
 		// check if file exists and if yes: Is it really a file and no directory?
 		if (check_file.exists() && check_file.isFile())
@@ -30,14 +28,12 @@ namespace DedicatedSlave {
 			return false;
 	}
 
-	void HelperIO::removeDirRec(const QString &dirName)
-	{
+	void HelperIO::removeDirRec(const QString &dirName){
 		QDir dir(dirName);
 		dir.removeRecursively();
 	}
 
-	void HelperIO::doDownload(const QUrl &url)
-	{
+	void HelperIO::doDownload(const QUrl &url){
 		//qInfo() << "doDownload";
 		QNetworkRequest request(url);
 		//qInfo() << url.toString();
@@ -49,8 +45,7 @@ namespace DedicatedSlave {
 		currentDownloads.append(reply);
 	}
 
-	QString HelperIO::saveFileName(const QUrl &url)
-	{
+	QString HelperIO::saveFileName(const QUrl &url){
 		qDebug() << "URL: " << url;
 		QString path = url.path();
 		QString basename = QFileInfo(path).fileName();
@@ -67,12 +62,10 @@ namespace DedicatedSlave {
 
 			basename += QString::number(i);
 		}
-
 		return basename;
 	}
 
-	bool HelperIO::saveToDisk(const QString &filename, QIODevice *data)
-	{
+	bool HelperIO::saveToDisk(const QString &filename, QIODevice *data){
 		qDebug() << filename;
 		QFile file(filename);
 		if (!file.open(QIODevice::WriteOnly)) {
@@ -88,30 +81,25 @@ namespace DedicatedSlave {
 		return true;
 	}
 
-	void HelperIO::sslErrors(const QList<QSslError> &sslErrors)
-	{
-	#ifndef QT_NO_SSL
-		foreach (const QSslError &error, sslErrors)
-			fprintf(stderr, "SSL error: %s\n", qPrintable(error.errorString()));
-	#else
-		Q_UNUSED(sslErrors);
-	#endif
+	void HelperIO::sslErrors(const QList<QSslError> &sslErrors){
+        #ifndef QT_NO_SSL
+            foreach (const QSslError &error, sslErrors)
+                fprintf(stderr, "SSL error: %s\n", qPrintable(error.errorString()));
+        #else
+            Q_UNUSED(sslErrors);
+        #endif
 	}
 
-	void HelperIO::downloadFinished(QNetworkReply *reply)
-	{
+	void HelperIO::downloadFinished(QNetworkReply *reply){
 		qDebug() << "Reply: " << reply->isOpen();
 		QUrl url = reply->url();
 		if (reply->error()) {
-			fprintf(stderr, "Download of %s failed: %s\n",
-					url.toEncoded().constData(),
-					qPrintable(reply->errorString()));
-
+            fprintf(stderr, "Download of %s failed: %s\n", url.toEncoded().constData(), qPrintable(reply->errorString()));
 		} else {
 			QString filename = saveFileName(url);
-			if (saveToDisk(filename, reply))
-				printf("Download of %s succeeded (saved to %s)\n",
-					url.toEncoded().constData(), qPrintable(filename));
+            if (saveToDisk(filename, reply)){
+                printf("Download of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
+            }
 		}
 
 		currentDownloads.removeAll(reply);
@@ -121,8 +109,7 @@ namespace DedicatedSlave {
 		//		QCoreApplication::instance()->quit();
 	}
 
-	QString HelperIO::execute(QString urld)
-	{
+    QString HelperIO::execute(QString urld){
 		//qInfo() << "execute";
 	//	QString urld = "http://media.steampowered.com/installer/steamcmd_linux.tar.gz";
 		QUrl url = QUrl::fromEncoded(urld.toLocal8Bit());
@@ -131,8 +118,7 @@ namespace DedicatedSlave {
 	}
 
 	// TODO: Temporary approach to uncompress tar.gz file, include library
-	void HelperIO::extractTarGz(QString file)
-	{
+	void HelperIO::extractTarGz(QString file){
 		QStringList list;
 		list.clear();
 		//list << "PATH=/opt:/opt/p:/bin:";

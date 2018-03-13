@@ -52,11 +52,11 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 		_data = new DedicatedSlaveData(this);
 		qInfo() << "(CLASS)\t'DedicatedSlaveData' initialized.";
 
-		// VERIFY IF PRESENCE OF ANY FOLDER IN ETCINSTNACES THAT ARE NOT IN DB
+		// TODO: VERIFY IF PRESENCE OF ANY FOLDER IN ETCINSTNACES THAT ARE NOT IN DB
 
 		// SteamCMD Verification
 		if(!DedicatedSlave::helperio_instance->fileExists(_steamcmdFullDir)){
-			_steamapi->downloadSteamCmd();
+            _steamapi->downloadSteamCmd();
 		}
 
 		// TODO: falta async antes de dar extract.

@@ -56,6 +56,14 @@ Start the app in the dev environment.
 ...
 ```
 
+## Countinous Integration
+
+Sources:
+* ubuntu-toolchain-r-test - gcc
+* ubuntu-sdk-team - qt
+
+Qt Version: 5.2.1
+
 ---
 
 ## Versioning

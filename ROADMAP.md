@@ -1,15 +1,7 @@
 # Roadmap
 
-## Q1 2018
+* CI (Travis / Appveyor)
 
-* Library
-* Documentation (Read the Docs)
-
-## Q2 2018
-
-## Q3 2018
-
-* UI
 * Config
   * https://stackoverflow.com/questions/16250994/how-to-properly-use-qsettings
 * https://encrypted.google.com/search?hl=en&q=qprocess%20output%20ui%20qt

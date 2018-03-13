@@ -13,10 +13,10 @@ DedicatedSlave is a shell tool for bootstrapping game servers
 
 Create, Config and Launch your steam dedicated game server on the fly.
 
-Visit [Website](https://enthdev.github.io/dedicatedslave/) for more information
+Visit [Website](http://dedicatedslave.readthedocs.io) for more information
 
-* [Getting Started](https://enthdev.github.io/dedicatedslave/user-guide/gettingstarted/)
-* [Changelog](https://enthdev.github.io/dedicatedslave/about/release-notes/)
+* [Getting Started](http://dedicatedslave.readthedocs.io/en/latest/user-guide/gettingstarted/)
+* [Changelog](http://dedicatedslave.readthedocs.io/en/latest/about/release-notes/)
 
 ***
 
@@ -31,7 +31,7 @@ Contact [EnthDev](https://github.com/EnthDev) (<enthdev@outlook.com>) for more i
 
 Feel free to send pull requests and raise issues.
 
-Please read [Contributing Guidelines](CONTRIBUTING.md) for details about the process for submitting pull requests to us.
+Please read [Contributing Guidelines](http://dedicatedslave.readthedocs.io/en/latest/developer-guide/contributing.md) for details about the process for submitting pull requests to us.
 
 ## License
 

@@ -9,11 +9,10 @@
 branches:
   only:
     - master
-    - dev
-    - wip
-    - linux
-    - darwin
-    - windows
+    #- dev
+    #- linux
+    #- darwin
+    #- windows
 
 language: cpp
 
@@ -25,11 +24,9 @@ matrix:
     - os: linux
       compiler: clang
       sudo: required
-      services: docker
     - os: linux
       compiler: gcc
       sudo: required
-      services: docker
     - os: osx
       compiler: gcc
     - os: osx
@@ -37,6 +34,21 @@ matrix:
 
 arch:
   packages:
+    - qt5-base
+    - qt5-declarative
+    - qt5-location
+    - qt5-quickcontrols
+    - qt5-quickcontrols2
+    - qt5-script
+    - qt5-sensors
+    - qt5-svg
+    - qt5-tools
+    - qt5-webchannel
+    - qt5-webengine
+    - qt5-webkit
+    - qt5-x11extras
+    - qt5-xmlpatterns
+    - qtcreator
     - gtk3
     - ninja
     - vulkan-headers
@@ -57,8 +69,7 @@ arch:
     - repo sync
     - sudo repo forall -c repo start $TRAVIS_BRANCH .
     - if [[ "$TRAVIS_BRANCH" != "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; else cmake -DCMAKE_BUILD_TYPE=Release -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; fi
-    - make
-    - sudo make install
+    - make && sudo make install
     - make documentation
     - sudo pip install codecov
     - for filename in `find . | egrep '\.cpp'`; 
@@ -70,7 +81,7 @@ arch:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      curl -s https://raw.githubusercontent.com/aurora-fw/ci_travis_archlinux/master/arch-travis.sh | bash;
+      curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
     fi;
 
 notifications:
