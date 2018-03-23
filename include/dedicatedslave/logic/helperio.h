@@ -17,15 +17,14 @@ namespace DedicatedSlave {
 		QProcess* _pid = new QProcess();
 	public:
 		HelperIO();
-		~HelperIO();
-		void doDownload(const QUrl &url);
+        ~HelperIO();
 		QString saveFileName(const QUrl &url);
 		void removeDirRec(const QString &dirName);
 		bool fileExists(QString path);
 		bool saveToDisk(const QString &filename, QIODevice *data);
 		void extractTarGz(QString );
 	public slots:
-		QString execute(QString urld);
+		QString downloadFileUrl(QString urld);
 		void downloadFinished(QNetworkReply *reply);
 		void sslErrors(const QList<QSslError> &errors);
 	};

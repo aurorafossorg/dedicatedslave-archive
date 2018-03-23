@@ -63,7 +63,7 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 
 		// Extract if needed
 		if(!DedicatedSlave::helperio_instance->fileExists("./steamcmd.sh") || !DedicatedSlave::helperio_instance->fileExists("./steam.sh")){
-			qInfo() << "\t\tTrying to extract..." << _steamcmdFullDir;
+            qInfo() << "\tTrying to extract..." << _steamcmdFullDir;
 			DedicatedSlave::helperio_instance->extractTarGz(_steamcmdFullDir);
 		}
 		// Create folders

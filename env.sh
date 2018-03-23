@@ -1,7 +1,7 @@
 function c() { make clean; rm cmake_install.cmake; rm CMakeLists.txt.user; rm CMakeCache.txt; rm -rf CMakeFiles; rm -rf bin; }
 function b() { cmake .; make -j8; }
 function bd() { cmake -DCMAKE_BUILD_TYPE=Debug .; make -j8; ldd bin/dbg/libdedicatedslave.so; readelf -d bin/dbg/libdedicatedslave.so; }
-function br() { v && sh -c 'cd bin && ./dedicatedslave-gui' }
+function br() { b && sh -c 'cd bin && ./dedicatedslave-gui' }
 function r() { sh -c 'cd bin && ./dedicatedslave-gui'}
 
 echo "‘c’ - Clean the build files"

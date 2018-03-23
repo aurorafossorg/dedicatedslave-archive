@@ -62,8 +62,8 @@ arch:
     - if [[ "$TRAVIS_BRANCH" != "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; else cmake -DCMAKE_BUILD_TYPE=Release -DAURORA_CODECOVERAGE=ON .; fi
     #- if [[ "$TRAVIS_BRANCH" != "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; else cmake -DCMAKE_BUILD_TYPE=Release -DAURORA_TARGET_DOCUMENTATION=ON -DAURORA_CODECOVERAGE=ON .; fi
     - make
-    - sudo make install
-    - make documentation
+    #- sudo make install
+    #- make documentation
     - sudo pip install codecov
     - for filename in `find . | egrep '\.cpp'`; 
       do

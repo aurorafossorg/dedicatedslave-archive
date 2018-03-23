@@ -33,18 +33,6 @@ namespace DedicatedSlave {
 		dir.removeRecursively();
 	}
 
-	void HelperIO::doDownload(const QUrl &url){
-		//qInfo() << "doDownload";
-		QNetworkRequest request(url);
-		//qInfo() << url.toString();
-		QNetworkReply *reply = manager.get(request);
-
-	//#ifndef QT_NO_SSL
-	//	connect(reply, SIGNAL(sslErrors(QList<QSslError>)), SLOT(sslErrors(QList<QSslError>)));
-	//#endif
-		currentDownloads.append(reply);
-	}
-
 	QString HelperIO::saveFileName(const QUrl &url){
 		qDebug() << "URL: " << url;
 		QString path = url.path();
@@ -94,11 +82,11 @@ namespace DedicatedSlave {
 		qDebug() << "Reply: " << reply->isOpen();
 		QUrl url = reply->url();
 		if (reply->error()) {
-            fprintf(stderr, "Download of %s failed: %s\n", url.toEncoded().constData(), qPrintable(reply->errorString()));
+            fprintf(stderr, "\tDownload of %s failed: %s\n", url.toEncoded().constData(), qPrintable(reply->errorString()));
 		} else {
 			QString filename = saveFileName(url);
             if (saveToDisk(filename, reply)){
-                printf("Download of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
+                printf("\tDownload of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
             }
 		}
 
@@ -109,12 +97,22 @@ namespace DedicatedSlave {
 		//		QCoreApplication::instance()->quit();
 	}
 
-    QString HelperIO::execute(QString urld){
+    QString HelperIO::downloadFileUrl(QString urld){
 		//qInfo() << "execute";
 	//	QString urld = "http://media.steampowered.com/installer/steamcmd_linux.tar.gz";
 		QUrl url = QUrl::fromEncoded(urld.toLocal8Bit());
-		doDownload(url);
-		return url.path();
+
+        //qInfo() << "doDownload";
+        QNetworkRequest request(url);
+        //qInfo() << url.toString();
+        QNetworkReply *reply = manager.get(request);
+
+    //#ifndef QT_NO_SSL
+    //	connect(reply, SIGNAL(sslErrors(QList<QSslError>)), SLOT(sslErrors(QList<QSslError>)));
+    //#endif
+        currentDownloads.append(reply);
+        return url.path();
+
 	}
 
 	// TODO: Temporary approach to uncompress tar.gz file, include library

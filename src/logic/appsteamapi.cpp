@@ -16,11 +16,11 @@ DedicatedSlaveAppSteamApi::~DedicatedSlaveAppSteamApi(){
 
 void DedicatedSlaveAppSteamApi::downloadSteamCmd(){
 	#ifdef Q_OS_LINUX
-        DedicatedSlave::helperio_instance->execute("http://media.steampowered.com/installer/steamcmd_linux.tar.gz");
+        DedicatedSlave::helperio_instance->downloadFileUrl("http://media.steampowered.com/installer/steamcmd_linux.tar.gz");
 	#elif defined(Q_OS_WIN32)
-		DedicatedSlave::helperio_instance->execute("http://media.steampowered.com/installer/steamcmd.zip");
+        DedicatedSlave::helperio_instance->downloadFileUrl("http://media.steampowered.com/installer/steamcmd.zip");
 	#elif defined(Q_OS_MACOS)
-		DedicatedSlave::helperio_instance->execute("http://media.steampowered.com/client/installer/steamcmd_osx.tar.gz");
+        DedicatedSlave::helperio_instance->downloadFileUrl("http://media.steampowered.com/client/installer/steamcmd_osx.tar.gz");
 	#endif
 }
 
