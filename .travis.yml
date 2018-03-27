@@ -41,7 +41,7 @@ arch:
 
   script:
     - cmake .
-    - make
+    - make -j8
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
