@@ -1,4 +1,4 @@
-#include <dedicatedslave/data/models.h>
+#include <DedicatedSlave/data/models.h>
 #include <QDebug>
 
 // GameInstance

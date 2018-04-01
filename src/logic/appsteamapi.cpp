@@ -1,7 +1,7 @@
-#include <dedicatedslave/logic/app.h>
-#include <dedicatedslave/logic/appsteamapi.h>
-#include <dedicatedslave/logic/helperio.h>
-#include <dedicatedslave/logic/helpersys.h>
+#include <DedicatedSlave/logic/app.h>
+#include <DedicatedSlave/logic/appsteamapi.h>
+#include <DedicatedSlave/logic/helperio.h>
+#include <DedicatedSlave/logic/helpersys.h>
 
 DedicatedSlaveAppSteamApi::DedicatedSlaveAppSteamApi(const QString &dir, QObject *parent) : QObject(parent){    
     parentWin = qobject_cast<QObject*>(parent);

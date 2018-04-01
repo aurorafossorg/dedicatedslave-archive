@@ -1,4 +1,4 @@
-#include <dedicatedslave/data/dbmanager.h>
+#include <DedicatedSlave/data/dbmanager.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>

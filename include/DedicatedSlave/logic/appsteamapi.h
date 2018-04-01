@@ -1,10 +1,10 @@
 #ifndef APPSTEAMAPI_H
 #define APPSTEAMAPI_H
 
-#include <dedicatedslave/logic/app.h>
-#include <dedicatedslave/data/models.h>
-#include <dedicatedslave/logic/helperio.h>
-#include <dedicatedslave/logic/helpersys.h>
+#include <DedicatedSlave/logic/app.h>
+#include <DedicatedSlave/data/models.h>
+#include <DedicatedSlave/logic/helperio.h>
+#include <DedicatedSlave/logic/helpersys.h>
 
 #include <QString>
 #include <QObject>

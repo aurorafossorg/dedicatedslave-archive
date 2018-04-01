@@ -1,8 +1,8 @@
-#include <dedicatedslave/logic/app.h>
-#include <dedicatedslave/logic/processmanager.h>
-#include <dedicatedslave/logic/helperio.h>
-#include <dedicatedslave/logic/helpersys.h>
-#include <dedicatedslave/logic/config.h>
+#include <DedicatedSlave/logic/app.h>
+#include <DedicatedSlave/logic/processmanager.h>
+#include <DedicatedSlave/logic/helperio.h>
+#include <DedicatedSlave/logic/helpersys.h>
+#include <DedicatedSlave/logic/config.h>
 
 #include <QDebug>
 #include <QTimer>

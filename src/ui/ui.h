@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include <dedicatedslave/logic/app.h>
+#include <DedicatedSlave/logic/app.h>
 #include "uidock.h"
 #include "configdialog.h"
 

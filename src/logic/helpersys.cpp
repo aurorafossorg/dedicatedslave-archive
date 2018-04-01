@@ -1,4 +1,4 @@
-#include <dedicatedslave/logic/helpersys.h>
+#include <DedicatedSlave/logic/helpersys.h>
 
 // https://stackoverflow.com/questions/4383864/downloading-file-in-qt-from-url
 // http://www.antonioborondo.com/2014/10/22/zipping-and-unzipping-files-with-qt/

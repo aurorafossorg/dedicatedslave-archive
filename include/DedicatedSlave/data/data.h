@@ -1,8 +1,8 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <dedicatedslave/data/dbmanager.h>
-#include <dedicatedslave/data/models.h>
+#include <DedicatedSlave/data/dbmanager.h>
+#include <DedicatedSlave/data/models.h>
 #include <QObject>
 #include <QXmlStreamReader>
 #include <QSqlDatabase>

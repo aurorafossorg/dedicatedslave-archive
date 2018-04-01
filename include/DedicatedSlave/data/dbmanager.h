@@ -3,7 +3,7 @@
 
 #include <QSqlDatabase>
 #include <QHashIterator>
-#include <dedicatedslave/data/models.h>
+#include <DedicatedSlave/data/models.h>
 
 //struct dbstruct{
 //    QString instName;

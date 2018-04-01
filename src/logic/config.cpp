@@ -1,4 +1,4 @@
-#include <dedicatedslave/logic/config.h>
+#include <DedicatedSlave/logic/config.h>
 
 DedicatedSlaveAppConfig::DedicatedSlaveAppConfig(const QString &dir, QObject *parent)
     : QObject(parent){

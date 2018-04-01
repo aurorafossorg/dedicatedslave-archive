@@ -1,4 +1,4 @@
-#include <dedicatedslave/data/data.h>
+#include <DedicatedSlave/data/data.h>
 
 #include <QXmlStreamReader>
 #include <QString>

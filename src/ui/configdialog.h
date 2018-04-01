@@ -6,7 +6,7 @@
 #include <QListWidgetItem>
 #include <QStackedWidget>
 
-#include <dedicatedslave/logic/app.h>
+#include <DedicatedSlave/logic/app.h>
 
 class ConfigDialog : public QDialog {
 	Q_OBJECT

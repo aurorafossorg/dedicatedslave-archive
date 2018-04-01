@@ -1,5 +1,5 @@
 //#include <QCoreApplication>
-#include <dedicatedslave/logic/helperio.h>
+#include <DedicatedSlave/logic/helperio.h>
 
 #include <QFileInfo>
 #include <QNetworkReply>
@@ -19,7 +19,8 @@ namespace DedicatedSlave {
 		delete _pid;
 	}
 
-	bool HelperIO::fileExists(QString path){
+	bool HelperIO::fileExists(QString path)
+	{
 		QFileInfo check_file(path);
 		// check if file exists and if yes: Is it really a file and no directory?
 		if (check_file.exists() && check_file.isFile())

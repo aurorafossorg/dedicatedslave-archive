@@ -1,4 +1,4 @@
-#include <dedicatedslave/logic/processmanager.h>
+#include <DedicatedSlave/logic/processmanager.h>
 
 namespace DedicatedSlave {
 	DedicatedSlaveProcMgr::DedicatedSlaveProcMgr(){
