@@ -64,8 +64,10 @@ add_definitions(${Qt5Sql_DEFINITIONS})
 qt5_wrap_cpp(DEDICATEDSLAVE_WRAP_SOURCE_LIB ${DEDICATEDSLAVE_HEADERS})
 
 file(GLOB DEDICATEDSLAVE_SOURCE_LIB ${DEDICATEDSLAVE_ROOT_DIR}/src/*.cpp)
-add_library(dedicatedslave-lib SHARED ${DEDICATEDSLAVE_SOURCE_LIB}
-	${DEDICATEDSLAVE_HEADERS} ${DEDICATEDSLAVE_WRAP_SOURCE_LIB})
+add_library(dedicatedslave-lib SHARED
+	${DEDICATEDSLAVE_SOURCE_LIB}
+	${DEDICATEDSLAVE_HEADERS}
+	${DEDICATEDSLAVE_WRAP_SOURCE_LIB})
 
 target_link_libraries(dedicatedslave-lib curl)
 set_target_properties(dedicatedslave-lib PROPERTIES OUTPUT_NAME "dedicatedslave")
