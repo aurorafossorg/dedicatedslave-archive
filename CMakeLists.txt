@@ -5,28 +5,21 @@ if (NOT CONFIGURED_ONCE)
 	IF(NOT CMAKE_BUILD_TYPE)
 		SET(CMAKE_BUILD_TYPE "Release")
 	ENDIF()
-
 	set(CMAKE_INCLUDE_CURRENT_DIR OFF)
-	# Instruct CMake to run moc automatically when needed.
-	#set(CMAKE_AUTOMOC ON)
+	#set(CMAKE_AUTOMOC ON) # Instruct CMake to run moc automatically when needed.
 	set(DEDICATEDSLAVE_ROOT_DIR ${CMAKE_SOURCE_DIR})
-
 	set_property(GLOBAL PROPERTY CXX_STANDARD 14)
 	set_property(GLOBAL PROPERTY CXX_STANDARD_REQUIRED ON)
-
 	SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++1y")
 	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++1y")
-
 	IF(CMAKE_GENERATOR MATCHES "Ninja")
 		SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fdiagnostics-color")
 		SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fdiagnostics-color")
 	ENDIF()
-
 	SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og -g3 -Wall -Wextra -Wformat -pedantic -Wdouble-promotion")
 	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -g0 -w -Wl,-rpath,\"\\$$ORIGIN:\\$$ORIGIN/lib\"")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 	set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_RELEASE} -fprofile-arcs -ftest-coverage")
-
 	#Define output directory
 	IF(CMAKE_BUILD_TYPE MATCHES Debug)
 		SET(LIBRARY_OUTPUT_PATH ${DEDICATEDSLAVE_ROOT_DIR}/out/dbg/bin)
@@ -39,17 +32,12 @@ if (NOT CONFIGURED_ONCE)
 	ENDIF()
 endif()
 
-# Provides options that the user can optionally select.
-# Usage: option(<option_variable> "help string describing option" [initial value])
-
-option(DEDICATEDSLAVE_GUI "Build Graphical User Interface" ON)
-option(DEDICATEDSLAVE_DOCS "Build Documentation" OFF)
-option(DEDICATEDSLAVE_DOCS_AUTO "Automatically build documentation on 'all' target" ON)
+option(DEDICATEDSLAVE_GUI "Build Graphical User Interface" ON) # Provides options that the user can optionally select.
+option(DEDICATEDSLAVE_DOCS "Build Documentation" OFF) # Provides options that the user can optionally select.
+option(DEDICATEDSLAVE_DOCS_AUTO "Automatically build documentation on 'all' target" ON) # Provides options that the user can optionally select.
 
 file(GLOB_RECURSE DEDICATEDSLAVE_HEADERS ${DEDICATEDSLAVE_ROOT_DIR}/include/*.h)
 include_directories(${DEDICATEDSLAVE_ROOT_DIR}/include)
-
-# Find QT5 libraries
 
 find_package(Qt5Core REQUIRED)
 set_target_properties(Qt5::Core PROPERTIES MAP_IMPORTED_CONFIG_COVERAGE "RELEASE")
@@ -62,12 +50,10 @@ add_definitions(${Qt5Network_DEFINITIONS})
 find_package(Qt5Sql REQUIRED)
 include_directories(${Qt5Sql_INCLUDE_DIRS})
 add_definitions(${Qt5Sql_DEFINITIONS})
-
-#find_package( Qt5Widgets REQUIRED )
-
 qt5_wrap_cpp(DEDICATEDSLAVE_WRAP_SOURCE_LIB ${DEDICATEDSLAVE_HEADERS})
 
-file(GLOB DEDICATEDSLAVE_SOURCE_LIB ${DEDICATEDSLAVE_ROOT_DIR}/src/*.cpp)
+file(GLOB DEDICATEDSLAVE_SOURCE_LIB
+	${DEDICATEDSLAVE_ROOT_DIR}/src/*.cpp)
 add_library(dedicatedslave-lib SHARED
 	${DEDICATEDSLAVE_SOURCE_LIB}
 	${DEDICATEDSLAVE_HEADERS}
@@ -83,37 +69,24 @@ install(FILES ${DEDICATEDSLAVE_LIB_HEADERS} DESTINATION include/DedicatedSlave/)
 
 file(GLOB_RECURSE DEDICATEDSLAVE_SOURCE_UI ${DEDICATEDSLAVE_ROOT_DIR}/src/ui/*.cpp)
 file(GLOB_RECURSE DEDICATEDSLAVE_HEADERS_UI ${DEDICATEDSLAVE_ROOT_DIR}/src/ui/*.h)
-#file(GLOB_RECURSE DEDICATEDSLAVE_RESOURCES_UI ${DEDICATEDSLAVE_ROOT_DIR}/rsrc/*.qrc)
+file(GLOB_RECURSE DEDICATEDSLAVE_RESOURCES_UI ${DEDICATEDSLAVE_ROOT_DIR}/rsrc/*.qrc)
 file(GLOB_RECURSE DEDICATEDSLAVE_SOURCE_CLI ${DEDICATEDSLAVE_ROOT_DIR}/src/cli/*.cpp)
 file(GLOB_RECURSE DEDICATEDSLAVE_HEADERS_CLI ${DEDICATEDSLAVE_ROOT_DIR}/src/cli/*.h)
 
 qt5_add_resources(RES_DEDICATEDSLAVE_UI ${DEDICATEDSLAVE_RESOURCES_UI})
 qt5_wrap_cpp(DEDICATEDSLAVE_WRAP_SOURCE_UI ${DEDICATEDSLAVE_HEADERS_UI})
-
-# Tell CMake to create the executables
-
 add_executable(dedicatedslave-cli
-	${DEDICATEDSLAVE_SOURCE_CLI})
+    ${DEDICATEDSLAVE_SOURCE_CLI}) # Tell CMake to create the executables
 add_executable(dedicatedslave-gui
 	${DEDICATEDSLAVE_SOURCE_UI}
 	${DEDICATEDSLAVE_WRAP_SOURCE_UI}
 	${RES_DEDICATEDSLAVE_UI}
-	${DEDICATEDSLAVE_HEADERS_UI})
-
-# qt5_use_modules(dedicatedslave-gui Widgets) # macro encapsulates all of the variable usage Arch Linux + qt 5.11 Obsolete
-target_link_libraries(dedicatedslave-gui Widgets)
-
-# Install Targets
-
-install(TARGETS dedicatedslave-cli DESTINATION bin)
-install(TARGETS dedicatedslave-gui DESTINATION bin)
-
-# Specify libraries or flags to use when linking a given target and/or its dependents.
-
-target_link_libraries(dedicatedslave-cli dedicatedslave-lib)
-target_link_libraries(dedicatedslave-gui dedicatedslave-lib)
-
-# Targets can have properties that affect how they are built.
-
-set_target_properties(dedicatedslave-cli PROPERTIES OUTPUT_NAME "dedicatedslave")
-set_target_properties(dedicatedslave-gui PROPERTIES OUTPUT_NAME "dedicatedslave-gui")
+	${DEDICATEDSLAVE_HEADERS_UI}) # Tell CMake to create the executables
+#qt5_use_modules(dedicatedslave-gui Widgets) # ArchLinux Qt5.11 Obsolete
+target_link_libraries(dedicatedslave-gui Qt5::Widgets)
+install(TARGETS dedicatedslave-cli DESTINATION bin) # Install Targets
+install(TARGETS dedicatedslave-gui DESTINATION bin) # Install Targets
+target_link_libraries(dedicatedslave-cli dedicatedslave-lib) # Specify libraries or flags to use when linking a given target and/or its dependents.
+target_link_libraries(dedicatedslave-gui dedicatedslave-lib) # Specify libraries or flags to use when linking a given target and/or its dependents.
+set_target_properties(dedicatedslave-cli PROPERTIES OUTPUT_NAME "dedicatedslave") # Targets can have properties that affect how they are built.
+set_target_properties(dedicatedslave-gui PROPERTIES OUTPUT_NAME "dedicatedslave-gui") # Targets can have properties that affect how they are built.
