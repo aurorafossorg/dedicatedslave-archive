@@ -94,7 +94,8 @@ add_executable(dedicatedslave-gui ${DEDICATEDSLAVE_SOURCE_UI}
 	${RES_DEDICATEDSLAVE_UI}
 	${DEDICATEDSLAVE_HEADERS_UI})
 
-qt5_use_modules(dedicatedslave-gui Widgets)
+#qt5_use_modules(dedicatedslave-gui Widgets) # obsolete
+target_link_libraries(dedicatedslave-gui Qt5::Widgets)
 
 install(TARGETS dedicatedslave-cli DESTINATION bin)
 install(TARGETS dedicatedslave-gui DESTINATION bin)
