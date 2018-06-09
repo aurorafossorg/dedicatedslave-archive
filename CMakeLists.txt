@@ -1,4 +1,8 @@
+# Set the minimum required version of cmake for a project
+
 cmake_minimum_required(VERSION 3.1.0)
+
+# Set a name, version, and enable languages for the entire project.
 
 project(dedicatedslave)
 
@@ -8,6 +12,7 @@ if (NOT CONFIGURED_ONCE)
 	ENDIF()
 
 	set(CMAKE_INCLUDE_CURRENT_DIR OFF)
+	# Instruct CMake to run moc automatically when needed.
 	#set(CMAKE_AUTOMOC ON)
 	set(DEDICATEDSLAVE_ROOT_DIR ${CMAKE_SOURCE_DIR})
 
@@ -39,6 +44,9 @@ if (NOT CONFIGURED_ONCE)
 	ENDIF()
 endif()
 
+# Provides options that the user can optionally select.
+# Usage: option(<option_variable> "help string describing option" [initial value])
+
 option(DEDICATEDSLAVE_GUI "Build Graphical User Interface" ON)
 option(DEDICATEDSLAVE_DOCS "Build Documentation" OFF)
 option(DEDICATEDSLAVE_DOCS_AUTO "Automatically build documentation on 'all' target" ON)
@@ -46,20 +54,21 @@ option(DEDICATEDSLAVE_DOCS_AUTO "Automatically build documentation on 'all' targ
 file(GLOB_RECURSE DEDICATEDSLAVE_HEADERS ${DEDICATEDSLAVE_ROOT_DIR}/include/*.h)
 include_directories(${DEDICATEDSLAVE_ROOT_DIR}/include)
 
+# Find QT5 libraries
+
 find_package(Qt5Core REQUIRED)
 set_target_properties(Qt5::Core PROPERTIES MAP_IMPORTED_CONFIG_COVERAGE "RELEASE")
-
 find_package(Qt5Widgets REQUIRED)
-include_directories(${Qt5Widgets_INCLUDE_DIRS})
+include_directories(${Qt5Widgets_INCLUDE_DIRS}) # Add the include directories for the Qt 5 Widgets module to the compile lines.
 add_definitions(${Qt5Widgets_DEFINITIONS})
-
 find_package(Qt5Network REQUIRED)
 include_directories(${Qt5Network_INCLUDE_DIRS})
 add_definitions(${Qt5Network_DEFINITIONS})
-
 find_package(Qt5Sql REQUIRED)
 include_directories(${Qt5Sql_INCLUDE_DIRS})
 add_definitions(${Qt5Sql_DEFINITIONS})
+
+#find_package( Qt5Widgets REQUIRED )
 
 qt5_wrap_cpp(DEDICATEDSLAVE_WRAP_SOURCE_LIB ${DEDICATEDSLAVE_HEADERS})
 
@@ -86,6 +95,8 @@ file(GLOB_RECURSE DEDICATEDSLAVE_HEADERS_CLI ${DEDICATEDSLAVE_ROOT_DIR}/src/cli/
 qt5_add_resources(RES_DEDICATEDSLAVE_UI ${DEDICATEDSLAVE_RESOURCES_UI})
 qt5_wrap_cpp(DEDICATEDSLAVE_WRAP_SOURCE_UI ${DEDICATEDSLAVE_HEADERS_UI})
 
+# Tell CMake to create the executables
+
 add_executable(dedicatedslave-cli
 	${DEDICATEDSLAVE_SOURCE_CLI})
 add_executable(dedicatedslave-gui
@@ -94,12 +105,22 @@ add_executable(dedicatedslave-gui
 	${RES_DEDICATEDSLAVE_UI}
 	${DEDICATEDSLAVE_HEADERS_UI})
 
+# The qt5_use_modules macro encapsulates all of the variable usage required to use a Qt module.
+# https://doc.qt.io/archives/qt-5.10/cmake-manual.html#qt5core-macros
+
 qt5_use_modules(dedicatedslave-gui Widgets)
+
+# Install Targets
 
 install(TARGETS dedicatedslave-cli DESTINATION bin)
 install(TARGETS dedicatedslave-gui DESTINATION bin)
 
+# Specify libraries or flags to use when linking a given target and/or its dependents.
+
 target_link_libraries(dedicatedslave-cli dedicatedslave-lib)
 target_link_libraries(dedicatedslave-gui dedicatedslave-lib)
+
+# Targets can have properties that affect how they are built.
+
 set_target_properties(dedicatedslave-cli PROPERTIES OUTPUT_NAME "dedicatedslave")
 set_target_properties(dedicatedslave-gui PROPERTIES OUTPUT_NAME "dedicatedslave-gui")
