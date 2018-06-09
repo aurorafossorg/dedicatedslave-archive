@@ -1,10 +1,5 @@
-# Set the minimum required version of cmake for a project
-
-cmake_minimum_required(VERSION 3.1.0)
-
-# Set a name, version, and enable languages for the entire project.
-
-project(dedicatedslave)
+cmake_minimum_required(VERSION 3.1.0) # Set the minimum required version of cmake
+project(dedicatedslave) # Set a name, version, and enable languages
 
 if (NOT CONFIGURED_ONCE)
 	IF(NOT CMAKE_BUILD_TYPE)
@@ -105,10 +100,8 @@ add_executable(dedicatedslave-gui
 	${RES_DEDICATEDSLAVE_UI}
 	${DEDICATEDSLAVE_HEADERS_UI})
 
-# The qt5_use_modules macro encapsulates all of the variable usage required to use a Qt module.
-# https://doc.qt.io/archives/qt-5.10/cmake-manual.html#qt5core-macros
-
-qt5_use_modules(dedicatedslave-gui Widgets)
+# qt5_use_modules(dedicatedslave-gui Widgets) # macro encapsulates all of the variable usage Arch Linux + qt 5.11 Obsolete
+target_link_libraries(dedicatedslave-gui Widgets)
 
 # Install Targets
 
