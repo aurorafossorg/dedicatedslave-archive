@@ -1,6 +1,5 @@
 # Developer Guide
 
-
 ## Installation
 
 First install development tools:
@@ -71,3 +70,9 @@ Qt Version: 5.2.1
 * vM.N.P-alpha = Unstable version
 * vM.N.P-rc = Pre-release version
 * vM.N.P = Release version
+
+## References
+
+* https://github.com/stachenov/quazip
+* https://wiki.qt.io/Download_Data_from_URL
+* https://stackoverflow.com/questions/1874049/explanation-of-the-uml-arrows

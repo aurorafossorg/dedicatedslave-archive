@@ -60,8 +60,8 @@ int main(int argc, char *argv[]){
     QStringList args = QApplication::instance()->arguments();
     args.takeFirst(); // skip the first argument, which is the program's name
     if (args.isEmpty()) {
-        printf("Usage: dedicatedslave arg1 [arg2... argN]\n\n"
-               "TEST 123\n");
+//        printf("Usage: dedicatedslave arg1 [arg2... argN]\n\n"
+//               "\tTEST 123\n");
         QApplication::instance()->quit();
     }
     foreach (QString arg, args) {
@@ -76,9 +76,9 @@ int main(int argc, char *argv[]){
 
     // Program
     qApp->processEvents();
-    qInfo() << "\tQDir::currentPath" << QDir::currentPath();
-    qInfo() << "\tApplication::applicationDirPath" << QApplication::applicationDirPath();
-    qInfo() << "\tQApplication::applicationVersion" << QApplication::applicationVersion();
+    //qInfo() << "\tQDir::currentPath" << QDir::currentPath();
+    //qInfo() << "\tApplication::applicationDirPath" << QApplication::applicationDirPath();
+    //qInfo() << "\tQApplication::applicationVersion" << QApplication::applicationVersion();
 
     qInfo() << "(CLASS)\tInitializing 'MainWindow' class...";
     MainWindow mainWin(QCoreApplication::applicationDirPath());

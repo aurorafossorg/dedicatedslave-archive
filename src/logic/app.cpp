@@ -37,7 +37,6 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 
 		// System
 		DedicatedSlave::HelperSys::getInfo();
-
 		qInfo() << "(S)\tLoading settings:" << _settingsFullDir;
 		_config = new DedicatedSlaveAppConfig(_appDir, this);
 		_config->saveSettings(_settingsRelativeDir);
@@ -55,16 +54,16 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 		// TODO: VERIFY IF PRESENCE OF ANY FOLDER IN ETCINSTNACES THAT ARE NOT IN DB
 
 		// SteamCMD Verification
-		if(!DedicatedSlave::helperio_instance->fileExists(_steamcmdFullDir)){
+        if(!DedicatedSlave::helperio_instance->existsFile(_steamcmdFullDir)){
             _steamapi->downloadSteamCmd();
 		}
 
 		// TODO: falta async antes de dar extract.
 
 		// Extract if needed
-		if(!DedicatedSlave::helperio_instance->fileExists("./steamcmd.sh") || !DedicatedSlave::helperio_instance->fileExists("./steam.sh")){
+        if(!DedicatedSlave::helperio_instance->existsFile("./steamcmd.sh") || !DedicatedSlave::helperio_instance->existsFile("./steam.sh")){
             qInfo() << "\tTrying to extract..." << _steamcmdFullDir;
-			DedicatedSlave::helperio_instance->extractTarGz(_steamcmdFullDir);
+            DedicatedSlave::helperio_instance->uncompressTarGz(_steamcmdFullDir);
 		}
 		// Create folders
 		QDir dira("./etcinstances");
@@ -72,7 +71,7 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 			dira.mkpath(".");
 		}
 
-		//	data->restoreInstReadXMLFile();
+        //data->restoreInstReadXMLFile();
 	}
 }
 
@@ -167,13 +166,11 @@ void DedicatedSlaveApp::verifyInstProgress(QString instanceName){
 				gi->setStatus(-2);
 			}
 	});
-
 	connect(p, &QProcess::started, [=](){
 		qInfo() << "Proc started...";
         qInfo() << (QProcess::Running == p->state());
         qInfo() << (QProcess::Running == _procmgr->state(instanceName));
-	});
-
+    });
 //	connect(p, SIGNAL(readyReadStandardOutput()), this, SLOT(slot_handleVerifyProgress())); // BEST
 //	connect(p, SIGNAL(started()), this, SLOT(slot_handleVerifyStarted())); // BEST
 //	connect(p, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(slot_handleVerfiyFinished(int, QProcess::ExitStatus)));
@@ -181,12 +178,11 @@ void DedicatedSlaveApp::verifyInstProgress(QString instanceName){
     p->start(c);
     qInfo() << (QProcess::Running == p->state());
     qInfo() << (QProcess::Running == _procmgr->state(instanceName));
-
-		//_tedit = new QTextEdit;
-		//_tedit->setFixedHeight(300);
-		//_tedit->setFixedWidth(800);
+    //_tedit = new QTextEdit;
+    //_tedit->setFixedHeight(300);
+    //_tedit->setFixedWidth(800);
 //		connect(_pid, SIGNAL(readyRead()), this, SLOT(readProc()));
-		// connect(_pid, SIGNAL(readyReadStandardOutput()), this, SLOT(slot_handleVerifyProgress())); // BEST
+    // connect(_pid, SIGNAL(readyReadStandardOutput()), this, SLOT(slot_handleVerifyProgress())); // BEST
 //		connect(_pid, &QProcess::readyReadStandardOutput, [=](){ _tedit->append(_pid->readAllStandardOutput()); });
 //		connect(_pid, &QProcess::readyRead, [=](){ _tedit->append(_pid->readLine()); });
 //		_tedit->show();

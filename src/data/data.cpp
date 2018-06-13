@@ -27,7 +27,7 @@ DedicatedSlaveData::DedicatedSlaveData(QObject *parent)
 	// Init variables
 	QString dataFile = QApplication::applicationDirPath() + "/dbdata.db";
 
-	// Database Manager
+    // Database Manager
 	ds_dataDbMgr = new DbManager(dataFile);
 
 	// Init data

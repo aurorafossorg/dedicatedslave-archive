@@ -19,14 +19,19 @@ namespace DedicatedSlave {
 		delete _pid;
 	}
 
-	bool HelperIO::fileExists(QString path){
+    bool HelperIO::existsFile(QString path){
 		QFileInfo check_file(path);
 		// check if file exists and if yes: Is it really a file and no directory?
-		if (check_file.exists() && check_file.isFile())
-			return true;
-		else
-			return false;
+        if (check_file.exists() && check_file.isFile()){
+            return true;
+        } else {
+            return false;
+        }
 	}
+
+    bool HelperIO::existsDir(QString path){
+        return false;
+    }
 
 	void HelperIO::removeDirRec(const QString &dirName){
 		QDir dir(dirName);
@@ -79,7 +84,8 @@ namespace DedicatedSlave {
 	}
 
 	void HelperIO::downloadFinished(QNetworkReply *reply){
-		qDebug() << "Reply: " << reply->isOpen();
+        qDebug() << "Reply isOpen(): " << reply->isOpen();
+        qDebug() << "Reply isRunning(): " << reply->isRunning();
 		QUrl url = reply->url();
 		if (reply->error()) {
             fprintf(stderr, "\tDownload of %s failed: %s\n", url.toEncoded().constData(), qPrintable(reply->errorString()));
@@ -87,6 +93,9 @@ namespace DedicatedSlave {
 			QString filename = saveFileName(url);
             if (saveToDisk(filename, reply)){
                 printf("\tDownload of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
+                printf("\tFilename: /home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/%s\n", qPrintable(filename));
+                QString fullPath = "/home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/" + filename.toUtf8().constData();
+                uncompressTarGz(fullPath);
             }
 		}
 
@@ -116,12 +125,37 @@ namespace DedicatedSlave {
 	}
 
 	// TODO: Temporary approach to uncompress tar.gz file, include library
-	void HelperIO::extractTarGz(QString file){
+    void HelperIO::uncompressTarGz(QString file){
 		QStringList list;
 		list.clear();
 		//list << "PATH=/opt:/opt/p:/bin:";
 		_pid->setEnvironment(list);
 		_pid->start(QString("tar -xvzf %1").arg(file));
+        printf("\tExtraction complete... %s\n", file);
 		//_pid->waitForStarted();
 	}
+
+    void HelperIO::compressZip(QString filename, QString zipFilename){
+        QFile infile(filename);
+        QFile outfile(zipFilename);
+        infile.open(QIODevice::ReadOnly);
+        outfile.open(QIODevice::WriteOnly);
+        QByteArray uncompressed_data = infile.readAll();
+        QByteArray compressed_data = qCompress(uncompressed_data, 9);
+        outfile.write(compressed_data);
+        infile.close();
+        outfile.close();
+    }
+
+    void HelperIO::uncompressZip(QString zipFilename, QString filename){
+        QFile infile(zipFilename);
+        QFile outfile(filename);
+        infile.open(QIODevice::ReadOnly);
+        outfile.open(QIODevice::WriteOnly);
+        QByteArray uncompressed_data = infile.readAll();
+        QByteArray compressed_data = qUncompress(uncompressed_data);
+        outfile.write(compressed_data);
+        infile.close();
+        outfile.close();
+    }
 }

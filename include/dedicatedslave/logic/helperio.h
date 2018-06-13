@@ -20,9 +20,12 @@ namespace DedicatedSlave {
         ~HelperIO();
 		QString saveFileName(const QUrl &url);
 		void removeDirRec(const QString &dirName);
-		bool fileExists(QString path);
+        bool existsFile(QString path);
+        bool existsDir(QString path);
 		bool saveToDisk(const QString &filename, QIODevice *data);
-		void extractTarGz(QString );
+        void uncompressTarGz(QString );
+        void compressZip(QString, QString);
+        void uncompressZip(QString, QString);
 	public slots:
 		QString downloadFileUrl(QString urld);
 		void downloadFinished(QNetworkReply *reply);
