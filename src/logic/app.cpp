@@ -61,10 +61,10 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 		// TODO: falta async antes de dar extract.
 
 		// Extract if needed
-        if(!DedicatedSlave::helperio_instance->existsFile("./steamcmd.sh") || !DedicatedSlave::helperio_instance->existsFile("./steam.sh")){
-            qInfo() << "\tTrying to extract..." << _steamcmdFullDir;
-            DedicatedSlave::helperio_instance->uncompressTarGz(_steamcmdFullDir);
-		}
+//        if(!DedicatedSlave::helperio_instance->existsFile("./steamcmd.sh") || !DedicatedSlave::helperio_instance->existsFile("./steam.sh")){
+//            qInfo() << "\tTrying to extract..." << _steamcmdFullDir;
+//            DedicatedSlave::helperio_instance->uncompressTarGz(_steamcmdFullDir);
+//		}
 		// Create folders
 		QDir dira("./etcinstances");
 		if (!dira.exists()) {

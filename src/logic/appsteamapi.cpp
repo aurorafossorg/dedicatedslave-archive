@@ -30,7 +30,6 @@ QString DedicatedSlaveAppSteamApi::getVerifyCmd(const QString &wdir, GameInstanc
 		.arg(wdir)
 		.arg(gi->getNameId())
 		.arg(gi->getGameAppId());
-
 	// Hold Turn on the hold resource, i.e., xterm will not immediately destroy its window when the shell command completes. It will wait until you use the window manager to destroy/kill the window, or if you use the menu entries that send a signal, e.g., HUP or KILL.
 
 // QString cmdExec = QString("/bin/xterm -c -hold -e /bin/bash -l -c \"cd %1 && ./steamcmd.sh +login anonymous +force_install_dir ./etcinstances/%2 +app_update %3 validate +quit\"")

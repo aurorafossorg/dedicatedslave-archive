@@ -8,8 +8,7 @@
 // https://stackoverflow.com/questions/4383864/downloading-file-in-qt-from-url
 // http://www.antonioborondo.com/2014/10/22/zipping-and-unzipping-files-with-qt/
 namespace DedicatedSlave {
-	HelperIO::HelperIO()
-	{
+	HelperIO::HelperIO(){
 	//	this->connectSignalsAndSlots();
 		connect(&manager, SIGNAL(finished(QNetworkReply*)),
 			this, SLOT(downloadFinished(QNetworkReply*)));
@@ -42,17 +41,15 @@ namespace DedicatedSlave {
 		qDebug() << "URL: " << url;
 		QString path = url.path();
 		QString basename = QFileInfo(path).fileName();
-
-		if (basename.isEmpty())
-			basename = "download";
-
-		if (QFile::exists(basename)) {
-			// already exists, don't overwrite
+        if (basename.isEmpty()){
+         basename = "download";
+        }
+        if (QFile::exists(basename)) { // already exists, don't overwrite
 			int i = 0;
 			basename += '.';
-			while (QFile::exists(basename + QString::number(i)))
-				++i;
-
+            while (QFile::exists(basename + QString::number(i))){
+                ++i;
+            }
 			basename += QString::number(i);
 		}
 		return basename;
@@ -62,60 +59,55 @@ namespace DedicatedSlave {
 		qDebug() << filename;
 		QFile file(filename);
 		if (!file.open(QIODevice::WriteOnly)) {
-			fprintf(stderr, "Could not open %s for writing: %s\n",
-					qPrintable(filename),
-					qPrintable(file.errorString()));
+            fprintf(stderr, "Could not open %s for writing: %s\n", qPrintable(filename), qPrintable(file.errorString()));
 			return false;
 		}
-
 		file.write(data->readAll());
 		file.close();
-
 		return true;
 	}
 
 	void HelperIO::sslErrors(const QList<QSslError> &sslErrors){
         #ifndef QT_NO_SSL
-            foreach (const QSslError &error, sslErrors)
+            foreach (const QSslError &error, sslErrors){
                 fprintf(stderr, "SSL error: %s\n", qPrintable(error.errorString()));
+            }
         #else
             Q_UNUSED(sslErrors);
         #endif
 	}
 
+    // TODO: hardcoded path
 	void HelperIO::downloadFinished(QNetworkReply *reply){
-        qDebug() << "Reply isOpen(): " << reply->isOpen();
-        qDebug() << "Reply isRunning(): " << reply->isRunning();
 		QUrl url = reply->url();
 		if (reply->error()) {
             fprintf(stderr, "\tDownload of %s failed: %s\n", url.toEncoded().constData(), qPrintable(reply->errorString()));
 		} else {
 			QString filename = saveFileName(url);
             if (saveToDisk(filename, reply)){
+                qDebug() << "\tReply isOpen(): " << reply->isOpen();
+                qDebug() << "\tReply isRunning(): " << reply->isRunning();
                 printf("\tDownload of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
                 printf("\tFilename: /home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/%s\n", qPrintable(filename));
-                QString fullPath = "/home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/" + filename.toUtf8().constData();
+                QString fullPath = "/home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/" + filename;
                 uncompressTarGz(fullPath);
             }
 		}
-
 		currentDownloads.removeAll(reply);
 		reply->deleteLater();
-		//	if (currentDownloads.isEmpty())
-		//		// all downloads finished
-		//		QCoreApplication::instance()->quit();
+        if (currentDownloads.isEmpty()){
+            qDebug() << "\t All downloads are finished";
+        }
 	}
 
     QString HelperIO::downloadFileUrl(QString urld){
 		//qInfo() << "execute";
 	//	QString urld = "http://media.steampowered.com/installer/steamcmd_linux.tar.gz";
 		QUrl url = QUrl::fromEncoded(urld.toLocal8Bit());
-
         //qInfo() << "doDownload";
         QNetworkRequest request(url);
         //qInfo() << url.toString();
         QNetworkReply *reply = manager.get(request);
-
     //#ifndef QT_NO_SSL
     //	connect(reply, SIGNAL(sslErrors(QList<QSslError>)), SLOT(sslErrors(QList<QSslError>)));
     //#endif
@@ -131,7 +123,7 @@ namespace DedicatedSlave {
 		//list << "PATH=/opt:/opt/p:/bin:";
 		_pid->setEnvironment(list);
 		_pid->start(QString("tar -xvzf %1").arg(file));
-        printf("\tExtraction complete... %s\n", file);
+        printf("\tExtraction complete... %s\n", qPrintable(file));
 		//_pid->waitForStarted();
 	}
 

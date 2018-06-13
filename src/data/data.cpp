@@ -38,9 +38,9 @@ DedicatedSlaveData::DedicatedSlaveData(QObject *parent)
 			ds_dataDbMgr->createTable();
 			ds_dataDbMgr->deleteAllInst();
 		}
-        qInfo() << "\tDeserializating and loading data...";
+        qInfo() << "(DATA)\tDeserializating and loading data...";
 		loadData();
-        qInfo().nospace() << "\tData loaded (" << instHash->size() << ")";
+        qInfo().nospace() << "(DATA)\tData loaded (" << instHash->size() << ")";
 		ds_dataDbMgr->printAllInst();
 	}else{
 		qDebug() << "Database is not open!";

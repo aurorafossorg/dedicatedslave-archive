@@ -68,7 +68,7 @@ bool DbManager::dropTable(){
     QSqlQuery query;
     query.prepare("DROP TABLE instances;");
     if (!query.exec()){
-        qDebug() << "Couldn't drop the table 'instances'.";
+        qDebug() << "(DB)\tCouldn't drop the table 'instances'.";
         success = false;
     }
     return success;
@@ -79,7 +79,7 @@ bool DbManager::hasTable(){
     QSqlQuery query;
     query.prepare("CREATE TABLE instances(rowid INTEGER PRIMARY KEY);");
     if(!query.exec()){
-        qDebug() << "\tCouln't create the table 'instances': one might already exist.";
+        qDebug() << "(DB)\tCouln't create the table 'instances': one might already exist.";
         success = true;
     }else{
         QSqlQuery querya;
