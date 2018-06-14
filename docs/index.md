@@ -12,6 +12,8 @@ DedicatedSlave is a shell tool for bootstrapping game servers
 
 ![DedicatedSlave Banner](img/wide-banner.png)
 
+![DedicatedSlave Screen 01](img/screen_01.png)
+
 ### Create
 
 With DedicatedSlave creating game servers is not a problem.n You can create as many servers as you want.
