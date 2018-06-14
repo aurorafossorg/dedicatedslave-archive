@@ -26,7 +26,7 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
     if(parentWin != 0){ // After casting parent widget QMainWindow, need to check if is not null (Async)
 		QString _steamcmdFilename = "steamcmd_linux.tar.gz";
 		QString _settingsFilename = "settings.ini";
-        qInfo() << "\tcurrentPath:" << QDir::currentPath();
+        //qInfo() << "\tcurrentPath:" << QDir::currentPath();
 		_appDir = dir;
 		_steamcmdDir = "/" + _steamcmdFilename;
 		_settingsDir = "/" + _settingsFilename;
@@ -36,14 +36,14 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 		QString _settingsRelativeDir = "." + _settingsDir;
 
 		// System
-		DedicatedSlave::HelperSys::getInfo();
+        //DedicatedSlave::HelperSys::getInfo();
 		qInfo() << "(S)\tLoading settings:" << _settingsFullDir;
 		_config = new DedicatedSlaveAppConfig(_appDir, this);
 		_config->saveSettings(_settingsRelativeDir);
 		_config->saveSettingsValue(_settingsRelativeDir, "appDir", _appDir);
 		QStringList list = _config->loadSettings(_settingsRelativeDir);
 		foreach (QString cfgString, list) {
-            qInfo() << "(S)\tsetting:" << cfgString;
+            qInfo() << "(S)\tSetting:" << cfgString;
 		}
 
 		// Init Data
@@ -57,8 +57,6 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
         if(!DedicatedSlave::helperio_instance->existsFile(_steamcmdFullDir)){
             _steamapi->downloadSteamCmd();
 		}
-
-		// TODO: falta async antes de dar extract.
 
 		// Extract if needed
 //        if(!DedicatedSlave::helperio_instance->existsFile("./steamcmd.sh") || !DedicatedSlave::helperio_instance->existsFile("./steam.sh")){

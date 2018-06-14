@@ -68,6 +68,8 @@ int main(int argc, char *argv[]){
         qDebug() << arg;
     }
 
+    // TODO: hardcoded image of splashscreen
+
     // Splash Screen
     QSplashScreen *splashScreen = new QSplashScreen;
     splashScreen->setPixmap(QPixmap("/home/alex1a/ProgrammingFiles/dedicatedslave/1.png"));

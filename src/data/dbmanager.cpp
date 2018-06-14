@@ -148,7 +148,7 @@ bool DbManager::hasInstance(const QString& name) const{
 }
 
 void DbManager::printAllInst() const{
-    qInfo() << "\tInstances in db:";
+    qInfo() << "(DB)\tInstances in db:";
     QSqlQuery query("SELECT * FROM instances");
     int idName = query.record().indexOf("name");
     int idGame = query.record().indexOf("game");

@@ -76,3 +76,5 @@ Qt Version: 5.2.1
 * https://github.com/stachenov/quazip
 * https://wiki.qt.io/Download_Data_from_URL
 * https://stackoverflow.com/questions/1874049/explanation-of-the-uml-arrows
+* http://www.antonioborondo.com/2014/10/22/zipping-and-unzipping-files-with-qt/
+* https://stackoverflow.com/questions/4383864/downloading-file-in-qt-from-url

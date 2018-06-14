@@ -5,8 +5,6 @@
 #include <QNetworkReply>
 #include <QDir>
 
-// https://stackoverflow.com/questions/4383864/downloading-file-in-qt-from-url
-// http://www.antonioborondo.com/2014/10/22/zipping-and-unzipping-files-with-qt/
 namespace DedicatedSlave {
 	HelperIO::HelperIO(){
 	//	this->connectSignalsAndSlots();
@@ -20,8 +18,7 @@ namespace DedicatedSlave {
 
     bool HelperIO::existsFile(QString path){
 		QFileInfo check_file(path);
-		// check if file exists and if yes: Is it really a file and no directory?
-        if (check_file.exists() && check_file.isFile()){
+        if (check_file.exists() && check_file.isFile()){ // check if file exists and if yes: Is it really a file and no directory?
             return true;
         } else {
             return false;
@@ -38,11 +35,10 @@ namespace DedicatedSlave {
 	}
 
 	QString HelperIO::saveFileName(const QUrl &url){
-		qDebug() << "URL: " << url;
 		QString path = url.path();
 		QString basename = QFileInfo(path).fileName();
         if (basename.isEmpty()){
-         basename = "download";
+            basename = "download";
         }
         if (QFile::exists(basename)) { // already exists, don't overwrite
 			int i = 0;
@@ -56,7 +52,6 @@ namespace DedicatedSlave {
 	}
 
 	bool HelperIO::saveToDisk(const QString &filename, QIODevice *data){
-		qDebug() << filename;
 		QFile file(filename);
 		if (!file.open(QIODevice::WriteOnly)) {
             fprintf(stderr, "Could not open %s for writing: %s\n", qPrintable(filename), qPrintable(file.errorString()));
@@ -77,7 +72,6 @@ namespace DedicatedSlave {
         #endif
 	}
 
-    // TODO: hardcoded path
 	void HelperIO::downloadFinished(QNetworkReply *reply){
 		QUrl url = reply->url();
 		if (reply->error()) {
@@ -85,18 +79,18 @@ namespace DedicatedSlave {
 		} else {
 			QString filename = saveFileName(url);
             if (saveToDisk(filename, reply)){
-                qDebug() << "\tReply isOpen(): " << reply->isOpen();
-                qDebug() << "\tReply isRunning(): " << reply->isRunning();
-                printf("\tDownload of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(filename));
-                printf("\tFilename: /home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/%s\n", qPrintable(filename));
-                QString fullPath = "/home/alex1a/ProgrammingFiles/_.edev/dedicatedslave/bin/" + filename;
+                QString currentPath = QDir::currentPath();
+                QString fullPath = currentPath + "/" + filename;
+                //qDebug() << "\tReply isOpen(): " << reply->isOpen();
+                //qDebug() << "\tReply isRunning(): " << reply->isRunning();
+                printf("\tDownload of %s succeeded (saved to %s)\n", url.toEncoded().constData(), qPrintable(fullPath));
                 uncompressTarGz(fullPath);
             }
 		}
 		currentDownloads.removeAll(reply);
 		reply->deleteLater();
         if (currentDownloads.isEmpty()){
-            qDebug() << "\t All downloads are finished";
+            //qDebug() << "\tAll downloads are finished";
         }
 	}
 

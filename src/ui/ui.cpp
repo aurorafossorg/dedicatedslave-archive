@@ -347,7 +347,7 @@ void DedicatedSlaveUi::initMenus()
 {
 	// File Menu
 //	if(parentWin != 0) {
-	qDebug() << "Q_FUNC_INFO" << Q_FUNC_INFO;
+    //qDebug() << "\tQ_FUNC_INFO" << Q_FUNC_INFO;
 //		qInfo() << "Q_FUNC_INFO:" << Q_FUNC_INFO;
 //		QMenuBar *menu = parentWin->menuBar();
 	menuFile = parentWin->menuBar()->addMenu(tr("&File"));
