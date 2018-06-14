@@ -1,6 +1,6 @@
 # Developer Guide
 
-![DedicatedSlave Dev Screen 01](img/devscreen_01.png)
+![DedicatedSlave Dev Screen 01](../img/devscreen_01.png)
 
 ## Installation
 
