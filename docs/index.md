@@ -28,27 +28,24 @@ Allow you to quickly launch any server from any platform.
 
 ## Supported Platforms
 
-![Windows](/img/os_win.png)
-![Archlinux](/img/os_archlinux.png)
+![Windows](img/os_win.png)
+![Archlinux](img/os_archlinux.png)
 
 ## Features
 
-* Dedicated server manager:
-  - Start/Stop instances
-  - Create/Delete instances
-  - Backup/Restore instance
+* A dedicated server manager, that can start/stop/create/delete/backup/restore game instances.
+* Custom game options
 
 ## Roadmap
 
-* CI (Travis / Appveyor)
+* Game Instances Custom Options
+  * CSGO
+    * ESL Config
+    * Plugins
+      * Zombies
 * Config
-  * https://stackoverflow.com/questions/16250994/how-to-properly-use-qsettings
-* https://encrypted.google.com/search?hl=en&q=qprocess%20output%20ui%20qt
-* http://zetcode.com/gui/qt5/files/
-* https://stackoverflow.com/questions/41848939/reading-and-writing-to-qprocess-in-qt-console-application
-* download auto esl config
-* verify if any folder exist and is not in db
-* update system
+* Verify if any folder exist and is not in db
+* Update system
 
 ***
 

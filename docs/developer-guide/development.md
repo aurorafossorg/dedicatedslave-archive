@@ -2,6 +2,8 @@
 
 ![DedicatedSlave Dev Screen 01](../img/devscreen_01.png)
 
+***
+
 ## Installation
 
 First install development tools:
@@ -13,6 +15,7 @@ Clone the repo via git:
 ```bash
 git clone --depth=1 https://github.com/EnthDev/dedicatedslave.git dedicatedslave
 cd dedicatedslave
+source env.sh
 ```
 
 > If you can't use yarn for some reason
@@ -21,32 +24,36 @@ cd dedicatedslave
 
 ## Build
 
-### Release
-
-Windows:
-
-* Open "env.cmd" and call
-
-```
-call buildrelease_win.cmd
-```
-
-Linux:
+Release:
 
 ```bash
-./buildrelease_linux.sh
+cmake .
+make -j8
 ```
 
-### Debug
+Debug:
+
+```bash
+cmake -DCMAKE_BUILD_TYPE=Debug .
+make -j8
+```
 
 ***
 
 ## Run
 
-Start the app in the dev environment.
+> The binary files are compile to ***bin/*** and ***bin/dbg/*** (Debug Mode)
+
+CLI
 
 ```bash
-...
+./dedicatedslave <>
+```
+
+GUI
+
+```bash
+./dedicatedslave-gui
 ```
 
 ***
@@ -54,12 +61,13 @@ Start the app in the dev environment.
 ## Testing
 
 ```bash
-...
+...q
 ```
 
 ## Countinous Integration
 
 Sources:
+
 * ubuntu-toolchain-r-test - gcc
 * ubuntu-sdk-team - qt
 
@@ -69,9 +77,13 @@ Qt Version: 5.2.1
 
 ## Versioning
 
+M: Major; N: Minor; P: Patch
+
 * vM.N.P-alpha = Unstable version
 * vM.N.P-rc = Pre-release version
 * vM.N.P = Release version
+
+***
 
 ## References
 
@@ -80,3 +92,13 @@ Qt Version: 5.2.1
 * https://stackoverflow.com/questions/1874049/explanation-of-the-uml-arrows
 * http://www.antonioborondo.com/2014/10/22/zipping-and-unzipping-files-with-qt/
 * https://stackoverflow.com/questions/4383864/downloading-file-in-qt-from-url
+* https://stackoverflow.com/questions/16250994/how-to-properly-use-qsettings
+* https://encrypted.google.com/search?hl=en&q=qprocess%20output%20ui%20qt
+* http://zetcode.com/gui/qt5/files/
+* https://stackoverflow.com/questions/41848939/reading-and-writing-to-qprocess-in-qt-console-application
+
+***
+
+This document was written with [Python Markdown][1], [PyMdown](http://facelessuser.github.io/PyMdown/)
+
+[1]: https://pythonhosted.org/Markdown/

@@ -31,7 +31,7 @@ Contact [EnthDev](https://github.com/EnthDev) (<enthdev@outlook.com>) for more i
 
 Feel free to send pull requests and raise issues.
 
-Please read [Contributing Guidelines](http://dedicatedslave.readthedocs.io/en/latest/developer-guide/contributing.md) for details about the process for submitting pull requests to us.
+Please read [Contributing Guidelines](http://dedicatedslave.readthedocs.io/en/latest/developer-guide/contributing/) for details about the process for submitting pull requests to us.
 
 ## License
 
