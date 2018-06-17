@@ -12,27 +12,15 @@
 #include <QStringListIterator>
 #include <QApplication>
 
-// http://www.walletfox.com/course/qxmlstreamreaderexample.php
-//static const QString dataFile = QApplication::applicationDirPath() + "/dbdata.db";
-
 /*!
  * \brief DedicatedSlaveData class Logic Data Model
  * \param parent
  */
-DedicatedSlaveData::DedicatedSlaveData(QObject *parent)
-	: QObject(parent)
-{
+DedicatedSlaveData::DedicatedSlaveData(QObject *parent) : QObject(parent){
     qDebug() << "\tCalling 'DedicatedSlaveData' constructor...";
-
-	// Init variables
 	QString dataFile = QApplication::applicationDirPath() + "/dbdata.db";
-
-    // Database Manager
 	ds_dataDbMgr = new DbManager(dataFile);
-
-	// Init data
 	instHash = new QHash<QString, GameInstance*>;
-
 	if (ds_dataDbMgr->isOpen()){
 		if(!ds_dataDbMgr->hasTable()){
 			ds_dataDbMgr->createTable();
@@ -45,14 +33,13 @@ DedicatedSlaveData::DedicatedSlaveData(QObject *parent)
 	}else{
 		qDebug() << "Database is not open!";
 	}
+}
+
+DedicatedSlaveData::~DedicatedSlaveData(){
 
 }
 
-DedicatedSlaveData::~DedicatedSlaveData()
-{}
-
-void DedicatedSlaveData::loadData()
-{
+void DedicatedSlaveData::loadData(){
 	QHashIterator<QString, QStringList> it = ds_dataDbMgr->deserializeData();
 	while(it.hasNext()){
 		it.next();
@@ -70,47 +57,43 @@ void DedicatedSlaveData::loadData()
 	}
 }
 
-DedicatedSlaveData::InstancesTypes DedicatedSlaveData::getInstanceType(QString type)
-{
-	if(type == "csgo")
-		return InstancesTypes::CSGO;
-	else if(type == "rust")
-		return InstancesTypes::RUST;
-	else
-		return InstancesTypes::NO;
+DedicatedSlaveData::InstancesTypes DedicatedSlaveData::getInstanceType(QString type){
+    if(type == "csgo"){
+        return InstancesTypes::CSGO;
+    }else if(type == "rust"){
+        return InstancesTypes::RUST;
+    }else{
+        return InstancesTypes::NO;
+    }
 }
 
-int DedicatedSlaveData::getAppId(InstancesTypes type)
-{
-	if(type == InstancesTypes::CSGO)
+int DedicatedSlaveData::getAppId(InstancesTypes type){
+    if(type == InstancesTypes::CSGO){
 		return 740;
-	else if(type == InstancesTypes::RUST)
+    }else if(type == InstancesTypes::RUST){
 		return 258550;
-	else
+    }else{
 		return -1;
+    }
 }
 
-GameInstance* DedicatedSlaveData::createInstModel(QString instanceName, QString game)
-{
-	if(game == "csgo")
+GameInstance* DedicatedSlaveData::createInstModel(QString instanceName, QString game){
+    if(game == "csgo"){
 		return new GameInstanceCSGO(instanceName, game);
-	else if(game == "rust")
+    }else if(game == "rust"){
 		return new GameInstanceRust(instanceName, game);
-    else
-    {
+    }else{
         qWarning() << "Invalid game, abstact instance was created!";
         return new GameInstance(instanceName, game);
     }
 }
 
-GameInstance* DedicatedSlaveData::createInstModel(QString instanceName, QString game, int status)
-{
-    if(game == "csgo")
+GameInstance* DedicatedSlaveData::createInstModel(QString instanceName, QString game, int status){
+    if(game == "csgo"){
         return new GameInstanceCSGO(instanceName, game, status);
-    else if(game == "rust")
+    }else if(game == "rust"){
         return new GameInstanceRust(instanceName, game, status);
-    else
-    {
+    }else{
         qWarning() << "Invalid game, abstact instance was created!";
         return new GameInstance(instanceName, game, status);
     }
@@ -122,25 +105,13 @@ void DedicatedSlaveData::insertInst(QString instanceName, QString game){
 	instHash->insert(instanceName, gi);
 }
 
-GameInstance* DedicatedSlaveData::getInst(QString instanceName)
-{
+GameInstance* DedicatedSlaveData::getInst(QString instanceName){
 	return instHash->value(instanceName);
 }
 
 void DedicatedSlaveData::removeInst(QString instanceName){
-//	qInfo() << "remove:" << instanceName;
 	instHash->remove(instanceName);
 	ds_dataDbMgr->deleteInst(instanceName);
-//	QListIterator<GameInstance*> i(instList);
-//	int index = 0;
-//	while(i.hasNext()){
-//	GameInstance *gi = i.next();
-//	if(gi->getName() == instanceName){
-//	qInfo() << gi->getName() << index;
-//	instList.removeAt(index);
-//	}
-//	index++;
-//	}
 }
 
 bool DedicatedSlaveData::hasInst(QString instanceName){
@@ -149,20 +120,14 @@ bool DedicatedSlaveData::hasInst(QString instanceName){
 
 QHashIterator<QString, GameInstance*> DedicatedSlaveData::listInst(){
 	QHashIterator<QString, GameInstance*> it(*instHash);
-//	while(it.hasNext()){
-//	qInfo() << it.next().key();
-//	}
-//	it.toFront();
 	return it;
 }
 
 //Writing and reading XML files with Qt - qxmlstreamwriter and qxmlstreamreader supported classes
 void DedicatedSlaveData::SaveXMLFile(){
-
 	QString filename = QFileDialog::getSaveFileName(Q_NULLPTR, tr("Save Xml"), ".", tr("Xml files (*.xml)"));
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
-
 	QXmlStreamWriter xmlWriter(&file);
 	xmlWriter.setAutoFormatting(true);
 	xmlWriter.writeStartDocument();
@@ -172,25 +137,20 @@ void DedicatedSlaveData::SaveXMLFile(){
 	xmlWriter.writeTextElement("Room", "roomvalue");
 	xmlWriter.writeTextElement("Potencial", "potencialvalue");
 	xmlWriter.writeEndElement();
-
 	file.close();
 }
 
 void DedicatedSlaveData::restoreInstReadXMLFile(){
 	QXmlStreamReader Rxml;
-
 	QString filename = QFileDialog::getOpenFileName(Q_NULLPTR, tr("Open Xml"), ".", tr("Xml files (*.xml)"));
-
 	QFile file(filename);
 	if (!file.open(QFile::ReadOnly | QFile::Text)){
 		std::cerr << "Error: Cannot read file " << qPrintable(filename)
 				  << ": " << qPrintable(file.errorString())
 				  << std::endl;
 	}
-
 	Rxml.setDevice(&file);
 	Rxml.readNext();
-
 	while(!Rxml.atEnd()){
 		if(Rxml.isStartElement()){
 			if(Rxml.name() == "LAMPS"){

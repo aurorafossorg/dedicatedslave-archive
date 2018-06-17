@@ -42,10 +42,6 @@ QHashIterator<QString, QStringList> DbManager::deserializeData(){
         hash.insert(name, list);
     }
     QHashIterator<QString, QStringList> it(hash);
-//    while(it.hasNext()){
-//        qInfo() << "blabla" << it.next().key();
-//    }
-//    it.toFront();
     return it;
 }
 
@@ -55,9 +51,6 @@ bool DbManager::createTable(){
     query.prepare("CREATE TABLE instances(id INTEGER PRIMARY KEY, name TEXT, game TEXT, status INTEGER);");
     if (!query.exec()){
         qDebug() << "\tCouldn't create the table 'instances': one might already exist.";
-//        QSqlQuery query;
-//        query.prepare("DROP TABLE instances;");
-//        query.exec();ed (0) (.
         success = false;
     }
     return success;
@@ -93,8 +86,7 @@ bool DbManager::hasTable(){
 
 bool DbManager::insertInst(const QString &name, const QString &game, const int &status){
    bool success = false;
-   // you should check if args are ok first...
-   QSqlQuery query;
+   QSqlQuery query; // you should check if args are ok first...
    query.prepare("INSERT INTO instances (id, name, game, status) "
                  "VALUES (NULL, (:name), (:game), (:status))");
    query.bindValue(":name", name);

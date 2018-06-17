@@ -96,9 +96,4 @@ M: Major; N: Minor; P: Patch
 * https://encrypted.google.com/search?hl=en&q=qprocess%20output%20ui%20qt
 * http://zetcode.com/gui/qt5/files/
 * https://stackoverflow.com/questions/41848939/reading-and-writing-to-qprocess-in-qt-console-application
-
-***
-
-This document was written with [Python Markdown][1], [PyMdown](http://facelessuser.github.io/PyMdown/)
-
-[1]: https://pythonhosted.org/Markdown/
+* http://www.walletfox.com/course/qxmlstreamreaderexample.php

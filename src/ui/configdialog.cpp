@@ -45,24 +45,21 @@ ConfigDialog::ConfigDialog(DedicatedSlaveApp *app) {
 }
 
 void ConfigDialog::createIcons(){
-    QListWidgetItem *configButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *configButton = new QListWidgetItem(contentsWidget); // config button
     configButton->setIcon(QIcon(":/images/config.png"));
     configButton->setText(tr("Configuration"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-    QListWidgetItem *updateButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *updateButton = new QListWidgetItem(contentsWidget); // update button
     updateButton->setIcon(QIcon(":/images/update.png"));
     updateButton->setText(tr("Update"));
     updateButton->setTextAlignment(Qt::AlignHCenter);
     updateButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
-    QListWidgetItem *queryButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *queryButton = new QListWidgetItem(contentsWidget); // query button
     queryButton->setIcon(QIcon(":/images/query.png"));
     queryButton->setText(tr("Query"));
     queryButton->setTextAlignment(Qt::AlignHCenter);
     queryButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-
     connect(contentsWidget, &QListWidget::currentItemChanged, this, &ConfigDialog::changePage);
 }
 

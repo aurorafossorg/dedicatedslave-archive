@@ -46,9 +46,5 @@ Allow you to quickly launch any server from any platform.
 * Config
 * Verify if any folder exist and is not in db
 * Update system
-
-***
-
-This document was written with [Python Markdown][1], [PyMdown](http://facelessuser.github.io/PyMdown/)
-
-[1]: https://pythonhosted.org/Markdown/
+* Documentation (Doxygen ??)
+* Colors Output

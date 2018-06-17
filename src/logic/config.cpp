@@ -1,7 +1,6 @@
 #include <dedicatedslave/logic/config.h>
 
-DedicatedSlaveAppConfig::DedicatedSlaveAppConfig(const QString &dir, QObject *parent)
-    : QObject(parent){
+DedicatedSlaveAppConfig::DedicatedSlaveAppConfig(const QString &dir, QObject *parent) : QObject(parent){
 
 }
 

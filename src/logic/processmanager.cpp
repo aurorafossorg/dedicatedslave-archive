@@ -5,10 +5,8 @@ namespace DedicatedSlave {
 		
 	}
 
-	DedicatedSlaveProcMgr::~DedicatedSlaveProcMgr()
-	{
-		while(count() != 0)
-		{
+	DedicatedSlaveProcMgr::~DedicatedSlaveProcMgr(){
+		while(count() != 0){
 			delete _ptree.last();
 			_ptree.remove(_ptree.lastKey());
 		}
@@ -24,43 +22,35 @@ namespace DedicatedSlave {
 		}
 	}
 
-	void DedicatedSlaveProcMgr::setWorkingDir(const QString &name, const QString &dir)
-	{
+	void DedicatedSlaveProcMgr::setWorkingDir(const QString &name, const QString &dir){
 		_ptree.value(name)->setWorkingDirectory(dir);
 	}
 
-	void DedicatedSlaveProcMgr::setEnvironment(const QString &name, const QStringList &envlist)
-	{
+	void DedicatedSlaveProcMgr::setEnvironment(const QString &name, const QStringList &envlist){
 		_ptree.value(name)->setEnvironment(envlist);
 	}
 
-	bool DedicatedSlaveProcMgr::isRunning(const QString &name) const
-	{
+	bool DedicatedSlaveProcMgr::isRunning(const QString &name) const{
 		return (QProcess::Running == _ptree.value(name)->state());
 	}
 
-	QProcess::ProcessState DedicatedSlaveProcMgr::state(const QString &name) const
-	{
+	QProcess::ProcessState DedicatedSlaveProcMgr::state(const QString &name) const{
 		return _ptree.value(name)->state();
 	}
 
-	void DedicatedSlaveProcMgr::run(const QString &name, const QString &cmd)
-	{
+	void DedicatedSlaveProcMgr::run(const QString &name, const QString &cmd){
 		_ptree.value(name)->start(cmd);
 	}
 
-	void DedicatedSlaveProcMgr::run(const QString &name, const QString &program, const QStringList &args)
-	{
+	void DedicatedSlaveProcMgr::run(const QString &name, const QString &program, const QStringList &args){
 		_ptree.value(name)->start(program, args);
 	}
 
-	QString DedicatedSlaveProcMgr::getProgram(const QString &name) const
-	{
+	QString DedicatedSlaveProcMgr::getProgram(const QString &name) const{
 		return _ptree.value(name)->program();
 	}
 
-	QStringList DedicatedSlaveProcMgr::getArguments(const QString &name) const
-{
+	QStringList DedicatedSlaveProcMgr::getArguments(const QString &name) const{
 		return _ptree.value(name)->arguments();
 	}
 
@@ -68,8 +58,7 @@ namespace DedicatedSlave {
 		_ptree.value(name)->setArguments(args);
 	}
 
-	void DedicatedSlaveProcMgr::setProgram(const QString &name, const QString &program)
-	{
+	void DedicatedSlaveProcMgr::setProgram(const QString &name, const QString &program){
 		_ptree.value(name)->setProgram(program);
 	}
 }

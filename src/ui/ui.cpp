@@ -55,8 +55,7 @@ DedicatedSlaveUi::DedicatedSlaveUi(const QString &dir, QWidget *parent)
 		editToolBar->addAction(actUndo);
         qInfo() << "\tToolbar initialized.";
 
-		// Menus
-
+        // Menus
 		initMenus();
         qInfo() << "\tMenus initialized.";
 		// Toggle View Menus
@@ -66,7 +65,6 @@ DedicatedSlaveUi::DedicatedSlaveUi(const QString &dir, QWidget *parent)
 		menuView->addAction(editToolBar->toggleViewAction());
 
 		// Main
-
 		QVBoxLayout *layout = new QVBoxLayout;
 		QWidget *topFiller = new QWidget;
 		topFiller->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -89,7 +87,12 @@ DedicatedSlaveUi::DedicatedSlaveUi(const QString &dir, QWidget *parent)
 
 		layout->addWidget(bottomFiller);
 		setLayout(layout);
-		// Parent properties
+        // Parent properties
+        ui_progressBar = new QProgressBar(this);
+        QLabel *a = new QLabel(this);
+        parentWin->statusBar()->addPermanentWidget(ui_progressBar);
+        parentWin->statusBar()->addPermanentWidget(a);
+        ui_progressBar->setValue(75);
 		parentWin->statusBar()->showMessage(tr("A context menu is available by right-clicking"));
 		parentWin->addDockWidget(Qt::RightDockWidgetArea, dockOptions);
 		parentWin->addDockWidget(Qt::RightDockWidgetArea, dockFileSystem);
@@ -116,11 +119,10 @@ QMenu* DedicatedSlaveUi::getContextMenu(){
 	return menu;
 }
 
-void DedicatedSlaveUi::updateModelInstTable()
-{
-	while (ui_instanceTable->rowCount() > 0)
-		ui_instanceTable->removeRow(0);
-
+void DedicatedSlaveUi::updateModelInstTable(){
+    while (ui_instanceTable->rowCount() > 0){
+        ui_instanceTable->removeRow(0);
+    }
 	QHashIterator<QString, GameInstance*> i = ds_app->listInst();
 	i.toFront();
 	while (i.hasNext()) {
@@ -193,8 +195,7 @@ void DedicatedSlaveUi::updateEdit(){
 	updateEdit2("BLABLABLA 2");
 }
 
-void DedicatedSlaveUi::updateEdit1(const QString &customer)
-{
+void DedicatedSlaveUi::updateEdit1(const QString &customer){
 	if (customer.isEmpty())
 		return;
 	QStringList customerList = customer.split(", ");
@@ -217,8 +218,7 @@ void DedicatedSlaveUi::updateEdit1(const QString &customer)
 	}
 }
 
-void DedicatedSlaveUi::updateEdit2(const QString &paragraph)
-{
+void DedicatedSlaveUi::updateEdit2(const QString &paragraph){
 	if (paragraph.isEmpty())
 		return;
 	QTextDocument *document = ui_textEdit->document();
@@ -233,8 +233,7 @@ void DedicatedSlaveUi::updateEdit2(const QString &paragraph)
 	cursor.endEditBlock();
 }
 
-void DedicatedSlaveUi::initActions()
-{
+void DedicatedSlaveUi::initActions(){
 	// https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
 	// New Instance
 	const QIcon newIcon = QIcon::fromTheme("list-add", QIcon(":/images/new.png"));
@@ -343,8 +342,7 @@ void DedicatedSlaveUi::initActions()
 /*!
  * \brief Function that initializate menus
  */
-void DedicatedSlaveUi::initMenus()
-{
+void DedicatedSlaveUi::initMenus(){
 	// File Menu
 //	if(parentWin != 0) {
     //qDebug() << "\tQ_FUNC_INFO" << Q_FUNC_INFO;
@@ -387,19 +385,16 @@ void DedicatedSlaveUi::initMenus()
 	menuHelp->addAction(actAboutQt);
 }
 
-void DedicatedSlaveUi::conn_actionHelp()
-{
+void DedicatedSlaveUi::conn_actionHelp(){
 	QDesktopServices::openUrl(QUrl("https://enthdev.github.io/dedicatedslave/user-guide/gettingstarted/"));
 	ui_infoLabel->setText(tr("Invoked <b>Help|Help</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionCheckUpdates()
-{
+void DedicatedSlaveUi::conn_actionCheckUpdates(){
 	ui_infoLabel->setText(tr("Invoked <b>Help|CheckUpdates</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionAbout()
-{
+void DedicatedSlaveUi::conn_actionAbout(){
 	ui_infoLabel->setText(tr("Invoked <b>Help|About</b>"));
 	QMessageBox::about(this, tr("About Dedicated Slave"),
 		tr("The <b>Dedicated Slave</b> is a cross platform desktop app "
@@ -409,13 +404,11 @@ void DedicatedSlaveUi::conn_actionAbout()
 			"<p><a href='https://enthdev.github.io/dedicatedslave/user-guide/gettingstarted/'>Website - Getting Started</a>"));
 }
 
-void DedicatedSlaveUi::conn_actionAboutQt()
-{
+void DedicatedSlaveUi::conn_actionAboutQt(){
 	ui_infoLabel->setText(tr("Invoked <b>Help|About Qt</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionVerifyInst()
-{
+void DedicatedSlaveUi::conn_actionVerifyInst(){
 	if(app_slcInstPos[0] != -1 && app_slcInstPos[1] != -1){
 		QString instName = ui_instanceTable->item(app_slcInstPos[0], 0)->text();
 		if(ds_app->hasInst(instName)){
@@ -427,8 +420,7 @@ void DedicatedSlaveUi::conn_actionVerifyInst()
 	}
 }
 
-void DedicatedSlaveUi::conn_actionRunInst()
-{
+void DedicatedSlaveUi::conn_actionRunInst(){
 	if(app_slcInstPos[0] != -1 && app_slcInstPos[1] != -1){
 		QString instName = ui_instanceTable->item(app_slcInstPos[0], 0)->text();
 		if(ds_app->hasInst(instName)){
@@ -444,8 +436,7 @@ void DedicatedSlaveUi::conn_actionRunInst()
 	}
 }
 
-void DedicatedSlaveUi::conn_actionNewInstDialog()
-{
+void DedicatedSlaveUi::conn_actionNewInstDialog(){
 	ui_newInstGroup = new QGroupBox;
 	QLabel *labeltest = new QLabel(tr("Instance Game:"));
 //	QRadioButton *radio = new QRadioButton(tr("Add Instance"));
@@ -473,8 +464,7 @@ void DedicatedSlaveUi::conn_actionNewInstDialog()
 	ui_infoLabel->setText(tr("Invoked <b>File|New</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionRemoveInst()
-{
+void DedicatedSlaveUi::conn_actionRemoveInst(){
 	if(app_slcInstPos[0] != -1 && app_slcInstPos[1] != -1){
 		QMessageBox::StandardButton removeReply;
 		removeReply = QMessageBox::question(this,
@@ -496,8 +486,7 @@ void DedicatedSlaveUi::conn_actionRemoveInst()
 	}
 }
 
-void DedicatedSlaveUi::conn_actionNewInst()
-{
+void DedicatedSlaveUi::conn_actionNewInst(){
 	ui_newInstGroup->hide();
 	if(!app_newIntsName.isEmpty()){
 		if(!ds_app->hasInst(app_newIntsName)){
@@ -513,13 +502,11 @@ void DedicatedSlaveUi::conn_actionNewInst()
 	}
 }
 
-void DedicatedSlaveUi::conn_actionRestore()
-{
+void DedicatedSlaveUi::conn_actionRestore(){
 	ui_infoLabel->setText(tr("Invoked <b>File|Restore</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionBackup()
-{
+void DedicatedSlaveUi::conn_actionBackup(){
 	ui_infoLabel->setText(tr("Invoked <b>File|Save</b>"));
 	QMimeDatabase mimeDatabase;
 	QString fileName = QFileDialog::getSaveFileName(this,
@@ -543,41 +530,34 @@ void DedicatedSlaveUi::conn_actionBackup()
 	parentWin->statusBar()->showMessage(tr("Saved '%1'").arg(fileName), 2000);
 }
 
-void DedicatedSlaveUi::conn_actionUndo()
-{
+void DedicatedSlaveUi::conn_actionUndo(){
 	ui_infoLabel->setText(tr("Invoked <b>Edit|Undo</b>"));
 	ui_textEdit->document()->undo();
 }
 
-void DedicatedSlaveUi::conn_actionRedo()
-{
+void DedicatedSlaveUi::conn_actionRedo(){
 	ui_infoLabel->setText(tr("Invoked <b>Edit|Redo</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionCut()
-{
+void DedicatedSlaveUi::conn_actionCut(){
 	ui_infoLabel->setText(tr("Invoked <b>Edit|Cut</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionCopy()
-{
+void DedicatedSlaveUi::conn_actionCopy(){
 	ui_infoLabel->setText(tr("Invoked <b>Edit|Copy</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionPaste()
-{
+void DedicatedSlaveUi::conn_actionPaste(){
 	ui_infoLabel->setText(tr("Invoked <b>Edit|Paste</b>"));
 }
 
-void DedicatedSlaveUi::conn_actionOptions()
-{
+void DedicatedSlaveUi::conn_actionOptions(){
 	ui_infoLabel->setText(tr("Invoked <b>Tools|Options...</b>"));
 	ui_dialogConfig = new ConfigDialog(ds_app);
 	ui_dialogConfig->show();
 }
 
-void DedicatedSlaveUi::slot_addInstanceCombo(int index)
-{
+void DedicatedSlaveUi::slot_addInstanceCombo(int index){
 	switch (index) {
 		case 1:
 			app_newInstGame = "csgo";
@@ -588,18 +568,15 @@ void DedicatedSlaveUi::slot_addInstanceCombo(int index)
 		}
 }
 
-void DedicatedSlaveUi::slot_addInstNameEdit(QString instanceName)
-{
+void DedicatedSlaveUi::slot_addInstNameEdit(QString instanceName){
 	app_newIntsName = instanceName;
 }
 
-void DedicatedSlaveUi::slot_addInstDirEdit(QString instanceDir)
-{
+void DedicatedSlaveUi::slot_addInstDirEdit(QString instanceDir){
 	app_newInstDir = instanceDir;
 }
 
-void DedicatedSlaveUi::slot_instanceSelect(int row, int column)
-{
+void DedicatedSlaveUi::slot_instanceSelect(int row, int column){
 	app_slcInstPos[0] = row;
 	app_slcInstPos[1] = column;
 	QHashIterator<QString, GameInstance*> i = ds_app->listInst();

@@ -1,11 +1,12 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-	<file>images/new.png</file>
-	<file>images/print.png</file>
-	<file>images/save.png</file>
-	<file>images/undo.png</file>
-	<file>images/config.png</file>
-	<file>images/query.png</file>
-	<file>images/update.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>images/new.png</file>
+        <file>images/print.png</file>
+        <file>images/save.png</file>
+        <file>images/undo.png</file>
+        <file>images/config.png</file>
+        <file>images/query.png</file>
+        <file>images/update.png</file>
+        <file>images/splash.png</file>
+    </qresource>
 </RCC>

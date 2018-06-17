@@ -7,7 +7,7 @@
 
 namespace DedicatedSlave {
 	HelperIO::HelperIO(){
-	//	this->connectSignalsAndSlots();
+//		this->connectSignalsAndSlots();
 		connect(&manager, SIGNAL(finished(QNetworkReply*)),
 			this, SLOT(downloadFinished(QNetworkReply*)));
 	}

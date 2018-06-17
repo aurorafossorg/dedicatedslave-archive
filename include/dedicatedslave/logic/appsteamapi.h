@@ -15,7 +15,7 @@ class DedicatedSlaveAppSteamApi : public QObject {
 public:
 	explicit DedicatedSlaveAppSteamApi(const QString &dir, QObject *parent = 0);
 	~DedicatedSlaveAppSteamApi();
-	void downloadSteamCmd();
+	void installSteamCmd();
     QString getVerifyCmd(const QString &, GameInstance *gi);
 private:
 	QObject *parentWin;

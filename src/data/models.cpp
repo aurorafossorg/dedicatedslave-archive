@@ -1,8 +1,6 @@
 #include <dedicatedslave/data/models.h>
 #include <QDebug>
 
-// GameInstance
-
 GameInstance::GameInstance(QString name, QString game){
     qDebug() << "\tCalling 'GameInstance' constructor...";
     nameId = name;
@@ -61,8 +59,6 @@ QString GameInstance::getBinFilename(){
     return binFilename;
 }
 
-// GameInstanceCSGO
-
 GameInstanceCSGO::GameInstanceCSGO(QString name, QString game) : GameInstance(name, game){
     qDebug() << "\tCalling 'GameInstanceCSGO' constructor...";
     this->gameAppId = 740;
@@ -74,8 +70,6 @@ GameInstanceCSGO::GameInstanceCSGO(QString name, QString game, int status) : Gam
     this->gameAppId = 740;
     this->binFilename = "srcds_run";
 }
-
-// GameInstanceRust
 
 GameInstanceRust::GameInstanceRust(QString name, QString game) : GameInstance(name, game){
     qDebug() << "\tCalling 'GameInstanceRust' constructor...";

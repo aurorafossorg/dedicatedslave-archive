@@ -21,7 +21,7 @@ class DedicatedSlaveAppSteamApi;
 class DedicatedSlaveApp : public QObject {
 	Q_OBJECT
 signals:
-	void signal_verifyComplete(int existStatus);
+    void signal_verifyComplete(int existStatus); /**< Detailed description after the member */
 public:
 	explicit DedicatedSlaveApp(const QString &dir, QObject *parent = 0);
 	~DedicatedSlaveApp();

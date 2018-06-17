@@ -72,7 +72,9 @@ int main(int argc, char *argv[]){
 
     // Splash Screen
     QSplashScreen *splashScreen = new QSplashScreen;
-    splashScreen->setPixmap(QPixmap("/home/alex1a/ProgrammingFiles/dedicatedslave/1.png"));
+    QString a = QCoreApplication::applicationDirPath();
+    qInfo() << a;
+    splashScreen->setPixmap(QPixmap(":/images/splash.png"));
     splashScreen->show();
     splashScreen->showMessage(QObject::tr("Initiating your program now..."), Qt::AlignLeft | Qt::AlignTop, Qt::black);
 
@@ -86,6 +88,7 @@ int main(int argc, char *argv[]){
     MainWindow mainWin(QCoreApplication::applicationDirPath());
     qInfo() << "(CLASS)\t'MainWindow' initialized.";
     mainWin.setWindowTitle(QObject::tr("DedicatedSlave"));
+
     QTimer::singleShot(2500, &mainWin, SLOT(showMaximized())); // Show MainWindow
     splashScreen->finish(&mainWin); // Close Splash Screen when MainWindow show
     return app.exec();

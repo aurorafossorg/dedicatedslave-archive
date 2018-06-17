@@ -5,20 +5,16 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QStackedWidget>
-
 #include <dedicatedslave/logic/app.h>
 
 class ConfigDialog : public QDialog {
 	Q_OBJECT
 public:
 	ConfigDialog(DedicatedSlaveApp *app);
-
 public slots:
 	void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-
 private:
 	void createIcons();
-
 	QListWidget *contentsWidget;
 	QStackedWidget *pagesWidget;
 };
