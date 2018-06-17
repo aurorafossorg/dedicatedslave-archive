@@ -47,4 +47,4 @@ Allow you to quickly launch any server from any platform.
 * Verify if any folder exist and is not in db
 * Update system
 * Documentation (Doxygen ??)
-* Colors Output
+* Colors Output Stdout
