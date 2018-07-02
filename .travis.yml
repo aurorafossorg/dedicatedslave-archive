@@ -1,6 +1,3 @@
-# Ported from: https://github.com/aurora-fw/ci/
-#
-# Copyright (C) 2017 Aurora Framework, All rights reserved.
 # Copyright (C) 2018 Enthusiastic Development, All rights reserved
 
 branches:
@@ -8,9 +5,6 @@ branches:
     - master
     - dev
     - wip
-    - linux
-    - darwin
-    - windows
 
 language: cpp
 
@@ -49,11 +43,6 @@ script:
     fi;
 
 notifications:
-  webhooks:
-    urls:
-      - https://discordapp.com/api/webhooks/463145368738201631/HSWXy7WYCOlNAR5qJ1aLawHH2dI_5nQZxK_3VFUF_YWlrNLIatTC4x26eUsgll1AxmJV
-    on_success: always
-    on_failure: always
   email:
     recipients: enthdevelopment@gmail.com
     on_success: always
@@ -63,3 +52,12 @@ notifications:
       secure: D"Y4ovYGtEzGJnlk5znWYIPCkW0B/+IJ18UCoORMR0mUsRRc8G3QhgsIdMjAnREUUIPuUpwPhSfdRfHUTVK2ws6EvdRc51izKCwObtTcszywWiPU/xNXtvw2pV7cTLESdVsGWrNuDW4XaIdaJG4LQrTKuWgL8UQWOZuAcofjyCFjXSmuCBNIDo2EytjcBKFRy7O2cte7blvqUQrIvWtALiha84huV7nzuQGQleu3hOLaMs2WluERTg43P98TwQ5JLoSVhIrEsHGbOxSUjq22jOBf3rxmItOnNemKi260VgYSD8oLVv6qgu16cBQQSM3uXhzhhUt2+ujigGT4QEYCQN/ArtB1+RIkIqzU/a7D+UFfYT5Yb97blD5Bb6oM4NIv1AH4wm73VrxyFfbVYD1C2loCjC/dT0vpqBtUxj3xarZyz+x/nSt/5fgVXs9EHHB7t7iqbHsqylTPa6BNYsD+zjXlT9WHzQTPggfA92XjhT+thCcKZRmFthSgGXrSYNsY+np14cDK0a/m+OVu1CRxaqhhbkyDpi4jUfI+GoAz7VMSYXXqAjE9nx6G8r+dKIbW2FKUmLT6GmmADwPUbh95vkKjfcnfKL71cJ4vw9nOBCrqnic8WY9ZBlBm34RoZhpoLTaHir0sbXOwpJ1DlqduirR8RdXvrN+r4tTy6MjR0VjI=
     on_success: always
     on_failure: always
+
+after_success:
+  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
