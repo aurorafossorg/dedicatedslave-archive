@@ -49,6 +49,8 @@ script:
     fi;
 
 notifications:
+  webhooks:
+    - https://discordapp.com/api/webhooks/463145368738201631/HSWXy7WYCOlNAR5qJ1aLawHH2dI_5nQZxK_3VFUF_YWlrNLIatTC4x26eUsgll1AxmJV
   email:
     recipients: enthdevelopment@gmail.com
     on_success: always
