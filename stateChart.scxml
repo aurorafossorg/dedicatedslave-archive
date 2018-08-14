@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" name="stateChart" qt:editorversion="4.6.1" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" initial="State_1">
+    <qt:editorinfo initialGeometry="137.22;163.02;-20;-20;40;40"/>
+    <state id="State_1">
+        <qt:editorinfo scenegeometry="333.25;163.02;273.25;113.02;120;100" geometry="333.25;163.02;-60;-50;120;100"/>
+    </state>
+</scxml>

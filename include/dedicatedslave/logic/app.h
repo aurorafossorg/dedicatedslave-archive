@@ -33,6 +33,11 @@ public:
 	void verifyInst(QString instanceName);
 	void verifyInstProgress(QString instanceName);
     void runInst(const QString &instanceName);
+    QString getDirSteamcmd();
+    QString getDirApp();
+    QString getDirSettings();
+    bool hasSteamcmd();
+    void installSteamcmd();
 public slots:
 	void slot_handleVerifyProgress();
 	void slot_handleVerfiyFinished(int exitCode, QProcess::ExitStatus exitStatus);
@@ -45,8 +50,10 @@ private:
 	QStringList _loadSettings(QString file);
 	void _readyReadStandardOutput();
 	void _readyReadStandardError();
-	QString _steamcmdDir;
-	QString _settingsDir;
+    bool _hasSteamcmd;
+    QString _dirApp;
+    QString _dirSteamcmd;
+    QString _dirSettings;
 	DedicatedSlaveAppSteamApi* _steamapi;
 	DedicatedSlaveAppConfig* _config;
 	DedicatedSlaveData* _data;
@@ -54,7 +61,6 @@ private:
 	QTextEdit* _tedit;
 	QProgressBar* _pgbar = new QProgressBar();
 	QProcess* _pid = new QProcess();
-	QString _appDir;
 };
 
 #endif // DEDICATEDSLAVE_LOGIC_APP_H

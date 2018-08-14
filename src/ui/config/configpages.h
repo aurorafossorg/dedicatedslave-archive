@@ -2,10 +2,14 @@
 #define DEDICATEDSLAVE_UI_CONFIGPAGES_H
 
 #include <QWidget>
+#include "configdialog.h"
 
 class ConfigurationPage : public QWidget {
+    Q_OBJECT
 public:
 	ConfigurationPage(QWidget *parent = 0);
+private:
+    ConfigDialog *parentWin;
 };
 
 class QueryPage : public QWidget {

@@ -1,42 +1,80 @@
 #include <QtWidgets>
 
 #include "configpages.h"
+#include "configdialog.h"
 
 ConfigurationPage::ConfigurationPage(QWidget *parent)
     : QWidget(parent)
 {
-    QGroupBox *configGroup = new QGroupBox(tr("Server configuration"));
+    //parentWin = qobject_cast<QObject*>(parent);
+    parentWin = dynamic_cast<ConfigDialog*>(parent);
+    if(parentWin != 0){
+        QString _string = parentWin->getDirSteamcmd();
 
-    QLabel *serverLabel = new QLabel(tr("Server:"));
-    QComboBox *serverCombo = new QComboBox;
-    serverCombo->addItem(tr("Qt (Australia)"));
-    serverCombo->addItem(tr("Qt (Germany)"));
-    serverCombo->addItem(tr("Qt (Norway)"));
-    serverCombo->addItem(tr("Qt (People's Republic of China)"));
-    serverCombo->addItem(tr("Qt (USA)"));
-    QLabel *mainDirLabel = new QLabel(tr("Dir:"));
-    QLabel *mainDirLabel2 = new QLabel(QApplication::applicationDirPath());
-    QLineEdit *mainDirEdit = new QLineEdit;
+        QGroupBox *configGroup = new QGroupBox(tr("Server configuration"));
 
-    QHBoxLayout *mainDir2 = new QHBoxLayout;
-    mainDir2->addWidget(mainDirLabel2);
-    QHBoxLayout *mainDir = new QHBoxLayout;
-    mainDir->addWidget(mainDirLabel);
-    mainDir->addWidget(mainDirEdit);
-    QHBoxLayout *serverLayout = new QHBoxLayout;
-    serverLayout->addWidget(serverLabel);
-    serverLayout->addWidget(serverCombo);
+        QLabel *dirLabelMain = new QLabel(tr("Dir:"));
+        QLineEdit *dirValueMain = new QLineEdit(QApplication::applicationDirPath());
+        QHBoxLayout *dirMain = new QHBoxLayout;
+        dirMain->addWidget(dirLabelMain);
+        dirMain->addWidget(dirValueMain);
 
-    QVBoxLayout *configLayout = new QVBoxLayout;
-    configLayout->addLayout(serverLayout);
-    configLayout->addLayout(mainDir);
-    configLayout->addLayout(mainDir2);
-    configGroup->setLayout(configLayout);
+        QLabel *serverLabel = new QLabel(tr("Server:"));
+        QComboBox *serverCombo = new QComboBox;
+        serverCombo->addItem(tr("Qt (Australia)"));
+        serverCombo->addItem(tr("Qt (Germany)"));
+        serverCombo->addItem(tr("Qt (Norway)"));
+        serverCombo->addItem(tr("Qt (People's Republic of China)"));
+        serverCombo->addItem(tr("Qt (USA)"));
+        QHBoxLayout *serverLayout = new QHBoxLayout;
+        serverLayout->addWidget(serverLabel);
+        serverLayout->addWidget(serverCombo);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(configGroup);
-    mainLayout->addStretch(1);
-    setLayout(mainLayout);
+        QLabel *dirLabelApp = new QLabel(tr("dirApp:"));
+        QLineEdit *dirValueApp = new QLineEdit(parentWin->getDirApp());
+        QHBoxLayout *dirApp = new QHBoxLayout;
+        dirApp->addWidget(dirLabelApp);
+        dirApp->addWidget(dirValueApp);
+
+        QLabel *dirLabelSteamcmd = new QLabel(tr("dirSteamcmd:"));
+        QLineEdit *dirValueSteamcmd = new QLineEdit(parentWin->getDirSteamcmd());
+        QHBoxLayout *dirSteamcmd = new QHBoxLayout;
+        dirSteamcmd->addWidget(dirLabelSteamcmd);
+        dirSteamcmd->addWidget(dirValueSteamcmd);
+
+        QLabel *dirLabelSettings = new QLabel(tr("dirSettings:"));
+        QLineEdit *dirValueSettings = new QLineEdit(parentWin->getDirSettings());
+        QHBoxLayout *dirSettings = new QHBoxLayout;
+        dirSettings->addWidget(dirLabelSettings);
+        dirSettings->addWidget(dirValueSettings);
+
+        QLabel *hasLabelSteamcmd = new QLabel(tr("hasSteamcmd"));
+        QCheckBox *hasValueSteamcmd = new QCheckBox(tr("hasSteamcmd"));
+        hasValueSteamcmd->setTristate(parentWin->hasSteamcmd());
+        hasValueSteamcmd->setDisabled(true);
+
+        QPushButton *buttonInstall = new QPushButton("Install", this);
+        //buttonInstall->setGeometry(QRect(QPoint(100, 100)), QSize(200, 50));
+        connect(buttonInstall, SIGNAL(clicked()), parentWin, SLOT(installSteamcmd()));
+        QHBoxLayout *hasSteamcmd = new QHBoxLayout;
+        hasSteamcmd->addWidget(hasLabelSteamcmd);
+        hasSteamcmd->addWidget(hasValueSteamcmd);
+        hasSteamcmd->addWidget(buttonInstall);
+
+        QVBoxLayout *configLayout = new QVBoxLayout;
+        configLayout->addLayout(serverLayout);
+        configLayout->addLayout(dirMain);
+        configLayout->addLayout(dirApp);
+        configLayout->addLayout(dirSteamcmd);
+        configLayout->addLayout(dirSettings);
+        configLayout->addLayout(hasSteamcmd);
+        configGroup->setLayout(configLayout);
+
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        mainLayout->addWidget(configGroup);
+        mainLayout->addStretch(1);
+        setLayout(mainLayout);
+    }
 }
 
 UpdatePage::UpdatePage(QWidget *parent)

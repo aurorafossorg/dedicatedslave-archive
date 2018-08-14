@@ -5,7 +5,7 @@
 
 #include <dedicatedslave/logic/app.h>
 #include "uidock.h"
-#include "configdialog.h"
+#include "config/configdialog.h"
 
 class QTableWidget;
 class QLabel;
@@ -26,21 +26,25 @@ class DedicatedSlaveUi : public QWidget{
     Q_OBJECT
 
 public:
+
     DedicatedSlaveUi(const QString &dir, QWidget *parent = 0);
     QMenu* getContextMenu();
     void updateProgressBar(int value);
     void resetProgressBar();
 
 protected:
+
     void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
+
     void slot_addInstanceCombo(int index);
     void slot_addInstNameEdit(QString instanceName);
     void slot_addInstDirEdit(QString instanceDir);
     void slot_instanceSelect(int row, int column);
 
 private:
+
     QMainWindow *parentWin;
     void updateEdit();
     void updateEdit1(const QString &customer);
@@ -69,34 +73,34 @@ private:
     void conn_actionAboutQt();
     void conn_actionSetLineSpacing();
     void conn_actionSetParagraphSpacing();
-    // Core
+
     DedicatedSlaveApp *ds_app;
-    // Variables
+
     QString app_dir;
     QString app_newInstGame;
     QString app_newInstDir;
     QString app_newIntsName;
     int *app_slcInstPos;
-    // UI
+
     QTableWidget *ui_instanceTable;
     QDialog *ui_dialogConfig;
     QTextEdit *ui_textEdit;
     QLabel *ui_infoLabel;
     QProgressBar *ui_progressBar;
     QGroupBox *ui_newInstGroup;
-    // UI Docks
+
     UiDockOptions *dockOptions;
     UiDockFileSystem *dockFileSystem;
-    // Menu
+
     QMenu *menuFile;
     QMenu *menuEdit;
     QMenu *menuView;
     QMenu *menuTools;
     QMenu *menuFormat;
     QMenu *menuHelp;
-    // Action Groups
+
     QActionGroup *actGroupAlign;
-    // Actions
+
     QAction *actNewInst;
     QAction *actRemoveInst;
     QAction *actRunInst;

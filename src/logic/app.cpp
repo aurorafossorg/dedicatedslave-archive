@@ -19,6 +19,7 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 	_steamapi(new DedicatedSlaveAppSteamApi(dir, this)),
 	_config(new DedicatedSlaveAppConfig(dir, this)),
 	_data(new DedicatedSlaveData(this)),
+    _hasSteamcmd(false),
     _procmgr(new DedicatedSlave::DedicatedSlaveProcMgr())
 {
 	parentWin = qobject_cast<QObject*>(parent);
@@ -29,17 +30,17 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
         DedicatedSlave::HelperSys::getInfo();
 		QString _steamcmdFilename = "steamcmd_linux.tar.gz";
 		QString _settingsFilename = "settings.ini";
-		_appDir = dir;
-		_steamcmdDir = "/" + _steamcmdFilename;
-		_settingsDir = "/" + _settingsFilename;
-		QString _steamcmdFullDir = _appDir + _steamcmdDir;
-		QString _settingsFullDir = _appDir + _settingsDir;
-		QString _steamcmdRelativeDir = "." + _steamcmdDir;
-		QString _settingsRelativeDir = "." + _settingsDir;
+        _dirApp = dir;
+        _dirSteamcmd = "/" + _steamcmdFilename;
+        _dirSettings = "/" + _settingsFilename;
+        QString _steamcmdFullDir = _dirApp + _dirSteamcmd;
+        QString _settingsFullDir = _dirApp + _dirSettings;
+        QString _steamcmdRelativeDir = "." + _dirSteamcmd;
+        QString _settingsRelativeDir = "." + _dirSettings;
 		qInfo() << "(S)\tLoading settings:" << _settingsFullDir;
-		_config = new DedicatedSlaveAppConfig(_appDir, this);
+        _config = new DedicatedSlaveAppConfig(_dirApp, this);
 		_config->saveSettings(_settingsRelativeDir);
-		_config->saveSettingsValue(_settingsRelativeDir, "appDir", _appDir);
+        _config->saveSettingsValue(_settingsRelativeDir, "appDir", _dirApp);
 		QStringList list = _config->loadSettings(_settingsRelativeDir);
 		foreach (QString cfgString, list) {
             qInfo() << "(S)\tSetting:" << cfgString;
@@ -50,7 +51,9 @@ DedicatedSlaveApp::DedicatedSlaveApp(const QString &dir, QObject *parent)
 //		TODO: VERIFY IF PRESENCE OF ANY FOLDER IN ETCINSTNACES THAT ARE NOT IN DB
         if(!DedicatedSlave::helperio_instance->existsFile(_steamcmdFullDir)){
             _steamapi->installSteamCmd();
-		}
+        }else{
+            _hasSteamcmd = true;
+        }
 //        TODO: Verify if steamcmd exist
 //        if(!DedicatedSlave::helperio_instance->existsFile("./steamcmd.sh") || !DedicatedSlave::helperio_instance->existsFile("./steam.sh")){
 //            qInfo() << "\tTrying to extract..." << _steamcmdFullDir;
@@ -80,6 +83,10 @@ bool DedicatedSlaveApp::hasReadyInst(QString instanceName){
 	}
 }
 
+void DedicatedSlaveApp::installSteamcmd(){
+    _steamapi->installSteamCmd();
+}
+
 bool DedicatedSlaveApp::hasInst(QString instanceName){
 	return _data->hasInst(instanceName);
 }
@@ -106,6 +113,22 @@ void DedicatedSlaveApp::runInst(const QString &instanceName){
 	_data->getInst(instanceName)->setStatus(1);
 }
 
+QString DedicatedSlaveApp::getDirSteamcmd(){
+    return _dirSteamcmd;
+}
+
+QString DedicatedSlaveApp::getDirApp(){
+    return _dirApp;
+}
+
+QString DedicatedSlaveApp::getDirSettings(){
+    return _dirSettings;
+}
+
+bool DedicatedSlaveApp::hasSteamcmd(){
+    return _hasSteamcmd;
+}
+
 QString DedicatedSlaveApp::_getRunWd(const QString &instanceName){
     QString wdir = QString("%1/etcinstances/%2")
         .arg(QDir::currentPath())
@@ -126,7 +149,7 @@ void DedicatedSlaveApp::slot_verify(){
 
 void DedicatedSlaveApp::verifyInstProgress(QString instanceName){
 	GameInstance *gi = _data->getInst(instanceName);
-	QString c = _steamapi->getVerifyCmd(_appDir, gi);
+    QString c = _steamapi->getVerifyCmd(_dirApp, gi);
 	QStringList list;
 	list.clear();
 	list << "PATH=/opt:/opt/p:/bin:";

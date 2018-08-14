@@ -7,6 +7,13 @@
 // Dialogs that are used to request a file name from the user or that are used to set application preferences are usually modal.
 // Dialogs can be application modal (the default) or window modal.
 ConfigDialog::ConfigDialog(DedicatedSlaveApp *app) {
+
+    _app = app;
+    _dirSteamcmd = app->getDirSteamcmd();
+    _dirApp = app->getDirApp();
+    _dirSettings = app->getDirSettings();
+    _hasSteamcmd = app->hasSteamcmd();
+
     contentsWidget = new QListWidget;
     contentsWidget->setViewMode(QListView::IconMode);
     contentsWidget->setIconSize(QSize(96, 84));
@@ -15,7 +22,7 @@ ConfigDialog::ConfigDialog(DedicatedSlaveApp *app) {
     contentsWidget->setSpacing(12);
 
     pagesWidget = new QStackedWidget;
-    pagesWidget->addWidget(new ConfigurationPage);
+    pagesWidget->addWidget(new ConfigurationPage(this));
     pagesWidget->addWidget(new UpdatePage);
     pagesWidget->addWidget(new QueryPage);
 
@@ -42,6 +49,26 @@ ConfigDialog::ConfigDialog(DedicatedSlaveApp *app) {
     setLayout(mainLayout);
 
     setWindowTitle(tr("Config Dialog"));
+}
+
+void ConfigDialog::instalSteamcmd(){
+    _app->installSteamcmd();
+}
+
+bool ConfigDialog::hasSteamcmd(){
+    return _hasSteamcmd;
+}
+
+QString ConfigDialog::getDirSteamcmd(){
+    return _dirSteamcmd;
+}
+
+QString ConfigDialog::getDirApp(){
+    return _dirApp;
+}
+
+QString ConfigDialog::getDirSettings(){
+    return _dirSettings;
 }
 
 void ConfigDialog::createIcons(){

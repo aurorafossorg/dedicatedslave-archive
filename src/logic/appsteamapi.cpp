@@ -15,6 +15,7 @@ DedicatedSlaveAppSteamApi::~DedicatedSlaveAppSteamApi(){
 }
 
 void DedicatedSlaveAppSteamApi::installSteamCmd(){
+    qInfo() << "\tInstalling SteamCMD";
 	#ifdef Q_OS_LINUX
         DedicatedSlave::helperio_instance->downloadFileUrl("http://media.steampowered.com/installer/steamcmd_linux.tar.gz");
 	#elif defined(Q_OS_WIN32)
