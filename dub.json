@@ -1,0 +1,17 @@
+{
+	"name": "dedicatedslave",
+	"license": "MIT",
+	"authors": [
+		"Luís Ferreira",
+		"Alexandre Ferreira"
+	],
+	"targetType": "dynamicLibrary",
+	"targetPath": ".out/bin",
+	"targetName": "dedicatedslave",
+	"sourcePaths": [ "src/source" ],
+	"importPaths": [ "src/source" ],
+	"subPackages": [
+		"src/gui",
+		"src/cli"
+	]
+}
