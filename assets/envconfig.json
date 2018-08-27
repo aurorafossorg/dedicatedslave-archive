@@ -1,0 +1,5 @@
+{
+	"windows": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip",
+	"linux": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz",
+	"macos": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz"
+}
