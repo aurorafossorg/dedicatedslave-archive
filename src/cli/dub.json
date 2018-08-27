@@ -1,0 +1,9 @@
+{
+	"name": "cli",
+	"targetType": "executable",
+	"targetPath": "source",
+	"targetPath": ".out/bin",
+	"targetName": "dedicatedslave-cli",
+	"sourcePaths": [ "source" ],
+	"importPaths": [ "source" ]
+}
