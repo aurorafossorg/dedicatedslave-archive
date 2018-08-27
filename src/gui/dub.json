@@ -1,0 +1,13 @@
+{
+	"name": "gui",
+	"targetType": "executable",
+	"targetPath": "source",
+	"targetPath": ".out/bin",
+	"targetName": "dedicatedslave-gui",
+	"sourcePaths": [ "source" ],
+	"importPaths": [ "source" ],
+	"dependencies": {
+		"dedicatedslave": "*",
+		"gtk-d": "~>3.8.3"
+	}
+}
