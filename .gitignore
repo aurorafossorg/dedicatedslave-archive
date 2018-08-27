@@ -158,6 +158,11 @@ CMakeCache.txt
 cmake_install.cmake
 
 bin/
+.dedicatedslave/
 settings.ini
+
+#DUB
+.dub/
+dub.selections.json
 
 # End of https://www.gitignore.io/api/osx,windows,qt,qtcreator
