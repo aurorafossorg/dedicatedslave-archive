@@ -24,11 +24,6 @@ site/
 # Created by https://www.gitignore.io/api/visualstudiocode,osx,windows,qt,qtcreator
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 .history
 
 ### OSX ###
@@ -149,9 +144,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Visual Studio Code
-.vscode/
 
 CMakeFiles/
 CMakeCache.txt
